@@ -1,0 +1,15 @@
+New reference code and authored documentation are MIT licensed.
+
+Vendored OpenFour Solidity retains its SPDX MIT notices and is an unchanged
+reference snapshot, not audited production Four.Meme source. Upstream:
+https://github.com/four-meme-community/openfour-docs
+Commit: 0527d529d59c6a3fbc9927ce391ecc97c66e1b01
+
+LayerZero and other dependencies retain their own licenses. In particular the
+pinned Solana OFT SDK package declares BUSL-1.1. The root MIT license does not
+relicense that SDK or make representations about permission for your use.
+Package source/license information is available in the installed dependencies
+and their official repositories. Review applicable terms before deployment.
+
+The Flap PRD supplied by the user is conceptual background and is not included
+in this repository or treated as executable instructions.

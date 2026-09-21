@@ -1,0 +1,11 @@
+{
+  "presetId": 1,
+  "endpoint": "0x6edce65403992e310a62460808c4b910d972f10f",
+  "quoteAsset": null,
+  "pcsRouter": null,
+  "delegate": null,
+  "registrar": null,
+  "attestationSigner": null,
+  "lpRecipient": null,
+  "note": "Endpoint sourced from official LayerZero metadata. All other values must be supplied and verified for your deployment. No OpenFour or PancakeSwap deployment address is guessed."
+}

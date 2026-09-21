@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const commit='4973ba8bef7b0fdf7268469abea3ea50dbd4bbd8';
+const expected='3ee24fd42bce01d1d19a52f4effb9e91455ceaadc32191a612d5f00878c49e35';
+const r=await fetch(`https://codeload.github.com/LayerZero-Labs/devtools/zip/${commit}`);
+if(!r.ok)throw new Error(`Upstream HTTP ${r.status}`);
+const body=Buffer.from(await r.arrayBuffer()),sha256=crypto.createHash('sha256').update(body).digest('hex');
+if(sha256!==expected)throw new Error('Archive hash changed; investigate before using source');
+fs.mkdirSync('work',{recursive:true});fs.writeFileSync('work/layerzero-devtools.zip',body);
+console.log(`Verified ${commit}. Extract work/layerzero-devtools.zip; follow examples/oft-solana/README.md. No Solana keys or deployment were created.`);

@@ -1,0 +1,26 @@
+
+> crosschain-expansion-reference@0.1.0 deploy:local
+> node scripts/deploy/local.mjs
+
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_win32_x64_127.node'
+Require stack:
+- C:\Users\USER\Documents\Codex\2026-09-19\files-mentioned-by-the-user-flap\outputs\crosschain-expansion\node_modules\ganache\node_modules\@trufflesuite\uws-js-unofficial\src\uws.js
+- C:\Users\USER\Documents\Codex\2026-09-19\files-mentioned-by-the-user-flap\outputs\crosschain-expansion\node_modules\ganache\dist\node\core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+{
+  environment: 'ephemeral Ganache; addresses disappear when this command exits',
+  mockCore: '0x26b4AFb60d6C903165150C6F0AA14F8016bE4aec',
+  token: '0xCDB667316ca7A90A4ed2F2E54b26F156bbc0daFd',
+  bridge: '0xCa24282be001a428d27FdAC4676561c2EB1DE393',
+  pool: '0x79183957Be84C0F4dA451E534d5bA5BA3FB9c696',
+  publicMode: true
+}
+npm notice
+npm notice New major version of npm available! 10.9.2 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice

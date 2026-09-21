@@ -1,0 +1,12 @@
+import {Connection,PublicKey} from '@solana/web3.js';
+import {getMint,TOKEN_PROGRAM_ID} from '@solana/spl-token';
+import {verifyMint} from './bootstrap.mjs';
+const [mintAddress]=process.argv.slice(2);
+if(!mintAddress)throw new Error('Usage: node solana/verify-mint.mjs MINT');
+const connection=new Connection(process.env.SOLANA_DEVNET_RPC_URL??'https://api.devnet.solana.com','finalized');
+const key=new PublicKey(mintAddress),account=await connection.getAccountInfo(key,'finalized');
+if(!account)throw new Error('Mint absent');
+if(!account.owner.equals(TOKEN_PROGRAM_ID))throw new Error('Only legacy SPL Token accepted');
+const mint=await getMint(connection,key,'finalized',TOKEN_PROGRAM_ID);
+const evidence={mint:mintAddress,owner:account.owner.toBase58(),decimals:mint.decimals,supply:mint.supply.toString(),mintAuthority:mint.mintAuthority?.toBase58()??null,freezeAuthority:mint.freezeAuthority?.toBase58()??null,initialized:mint.isInitialized};
+verifyMint(evidence);console.log(JSON.stringify({checkedAt:new Date().toISOString(),rpc:connection.rpcEndpoint,evidence,note:'Asset policy passed; OFT store/program/peer/DVN verification remains separate'},null,2));

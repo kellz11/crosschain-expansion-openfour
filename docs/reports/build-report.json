@@ -1,0 +1,21 @@
+{
+  "compiler": "0.8.30+commit.73712a01.Emscripten.clang",
+  "sizes": {
+    "ExpansionBridgeFactory": 14917,
+    "ExpansionOFTAdapter": 12481,
+    "SourceRegistry": 833,
+    "ExpansionTypes": 57,
+    "MockCore": 7756,
+    "MockEndpoint": 2157,
+    "MockPair": 2387,
+    "MockQuote": 2387,
+    "MockV2Router": 4322,
+    "MockSimpleTradeModule": 1896,
+    "ExpansionCurveModule": 6406,
+    "ExpansionMigrateModule": 8288,
+    "PancakeV2ExpansionAdapter": 3487,
+    "EligibilityPriceAttestor": 3721,
+    "ExpansionToken": 10128,
+    "ExpansionPresetValidator": 2549
+  }
+}

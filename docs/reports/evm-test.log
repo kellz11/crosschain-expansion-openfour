@@ -1,0 +1,175 @@
+
+> crosschain-expansion-reference@0.1.0 test
+> npm run compile && node --test --test-concurrency=1 test/*.test.mjs
+
+
+> crosschain-expansion-reference@0.1.0 compile
+> node scripts/compile.mjs
+
+Compiled 75 source units using 0.8.30+commit.73712a01.Emscripten.clang
+{
+  ExpansionBridgeFactory: 14917,
+  ExpansionOFTAdapter: 12481,
+  SourceRegistry: 833,
+  ExpansionTypes: 57,
+  MockCore: 7756,
+  MockEndpoint: 2157,
+  MockPair: 2387,
+  MockQuote: 2387,
+  MockV2Router: 4322,
+  MockSimpleTradeModule: 1896,
+  ExpansionCurveModule: 6406,
+  ExpansionMigrateModule: 8288,
+  PancakeV2ExpansionAdapter: 3487,
+  EligibilityPriceAttestor: 3721,
+  ExpansionToken: 10128,
+  ExpansionPresetValidator: 2549
+}
+npm notice
+npm notice New major version of npm available! 10.9.2 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice
+TAP version 13
+# {
+#   cases: 2304,
+#   accepted: 1152,
+#   rejected: 1152,
+#   transitions: 114614,
+#   seed: 'case index; Park-Miller 48271',
+#   claim: 'Exact integer path-independent reserve conservation and inventory solvency for accepted parameter grid; not oracle accuracy, market demand or DVN security',
+#   examples: [
+#     {
+#       D: '100000000000000000000',
+#       G: '10000000000000000000',
+#       V: '100000000000000000000',
+#       P: '5000010000000000',
+#       reserve: '55555666666666667',
+#       lpTokens: '9000000000000000048'
+#     },
+#     {
+#       D: '100000000000000000000',
+#       G: '10000000000000000000',
+#       V: '200000000000000000000',
+#       P: '5000010000000000',
+#       reserve: '52631684210526316',
+#       lpTokens: '9500000000000000036'
+#     },
+#     {
+#       D: '100000000000000000000',
+#       G: '10000000000000000000',
+#       V: '325000000000000000000',
+#       P: '5000010000000000',
+#       reserve: '51587404761904762',
+#       lpTokens: '9692307692307692325'
+#     },
+#     {
+#       D: '100000000000000000000',
+#       G: '10000000000000000000',
+#       V: '500000000000000000000',
+#       P: '5000010000000000',
+#       reserve: '51020510204081633',
+#       lpTokens: '9800000000000000065'
+#     },
+#     {
+#       D: '100000000000000000000',
+#       G: '39000000000000000000',
+#       V: '100000000000000000000',
+#       P: '5000010000000000',
+#       reserve: '319672770491803279',
+#       lpTokens: '23790000000000000014'
+#     }
+#   ]
+# }
+# Subtest: deterministic multi-parameter integer economics sweep
+ok 1 - deterministic multi-parameter integer economics sweep
+  ---
+  duration_ms: 199.8773
+  ...
+# This version of µWS is not compatible with your Node.js build:
+# Error: Cannot find module '../binaries/uws_win32_x64_127.node'
+# Require stack:
+# - C:\\Users\\USER\\Documents\\Codex\\2026-09-19\\files-mentioned-by-the-user-flap\\outputs\\crosschain-expansion\\node_modules\\ganache\\node_modules\\@trufflesuite\\uws-js-unofficial\\src\\uws.js
+# - C:\\Users\\USER\\Documents\\Codex\\2026-09-19\\files-mentioned-by-the-user-flap\\outputs\\crosschain-expansion\\node_modules\\ganache\\dist\\node\\core.js
+# Falling back to a NodeJS implementation; performance may be degraded.
+# Subtest: OpenFour public-interface reference: funding, trading, migration and standard OFT send
+    # Subtest: initial mint suppressed; implementations locked; module tags and schemas match ABI
+    ok 1 - initial mint suppressed; implementations locked; module tags and schemas match ABI
+      ---
+      duration_ms: 363.6098
+      ...
+    # Subtest: preset rejects insolvent split, foreign quote, foreign adapter and extra data
+    ok 2 - preset rejects insolvent split, foreign quote, foreign adapter and extra data
+      ---
+      duration_ms: 102.4178
+      ...
+    # Subtest: bootstrap rejects wrong domain/peer/depositor/recipient/cap and non-endpoint caller
+    ok 3 - bootstrap rejects wrong domain/peer/depositor/recipient/cap and non-endpoint caller
+      ---
+      duration_ms: 310.6556
+      ...
+    # Subtest: exact bootstrap credits committed inventory; duplicate packets and pre-migration public imports fail
+    ok 4 - exact bootstrap credits committed inventory; duplicate packets and pre-migration public imports fail
+      ---
+      duration_ms: 379.8558
+      ...
+    # Subtest: attestation rejects stale, future, low eligibility, wrong price/domain and signer
+    ok 5 - attestation rejects stale, future, low eligibility, wrong price/domain and signer
+      ---
+      duration_ms: 666.8054
+      ...
+    # Subtest: buys and sells telescope; transfers retain sellability; reserve mismatch is rejected
+    ok 6 - buys and sells telescope; transfers retain sellability; reserve mismatch is rejected
+      ---
+      duration_ms: 791.9923
+      ...
+    # Subtest: reverse quote maximality and seeded randomized solvency on deployed Solidity
+    ok 7 - reverse quote maximality and seeded randomized solvency on deployed Solidity
+      ---
+      duration_ms: 35948.6871
+      ...
+    # Subtest: pre-migration outbound, unauthorized migration and pause violations fail
+    ok 8 - pre-migration outbound, unauthorized migration and pause violations fail
+      ---
+      duration_ms: 291.2126
+      ...
+    # Subtest: sellout dust threshold handled; migration failure rolls back and retries exactly once
+    ok 9 - sellout dust threshold handled; migration failure rolls back and retries exactly once
+      ---
+      duration_ms: 1667.2899
+      ...
+    # Subtest: post-graduation authenticated mint, standard OFT burn, dust retention, pause and replay
+    ok 10 - post-graduation authenticated mint, standard OFT burn, dust retention, pause and replay
+      ---
+      duration_ms: 578.7618
+      ...
+    1..10
+ok 2 - OpenFour public-interface reference: funding, trading, migration and standard OFT send
+  ---
+  duration_ms: 42946.0994
+  ...
+# This version of µWS is not compatible with your Node.js build:
+# Error: Cannot find module '../binaries/uws_win32_x64_127.node'
+# Require stack:
+# - C:\\Users\\USER\\Documents\\Codex\\2026-09-19\\files-mentioned-by-the-user-flap\\outputs\\crosschain-expansion\\node_modules\\ganache\\node_modules\\@trufflesuite\\uws-js-unofficial\\src\\uws.js
+# - C:\\Users\\USER\\Documents\\Codex\\2026-09-19\\files-mentioned-by-the-user-flap\\outputs\\crosschain-expansion\\node_modules\\ganache\\dist\\node\\core.js
+# Falling back to a NodeJS implementation; performance may be degraded.
+# Subtest: normalized cross-chain supply with explicitly modeled source escrow and in-flight packets
+ok 3 - normalized cross-chain supply with explicitly modeled source escrow and in-flight packets
+  ---
+  duration_ms: 5957.4683
+  ...
+1..3
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 50186.8268
+npm notice
+npm notice New major version of npm available! 10.9.2 -> 12.0.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+npm notice To update run: npm install -g npm@12.0.2
+npm notice

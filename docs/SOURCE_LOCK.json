@@ -1,0 +1,11 @@
+{
+  "openfour": {"repository":"https://github.com/four-meme-community/openfour-docs","commit":"0527d529d59c6a3fbc9927ce391ecc97c66e1b01","developerGuide":"0.0.2","integrationGuide":"0.0.4"},
+  "fourmemeClassic": {"repository":"https://github.com/four-meme-community/fourmeme-docs","commit":"5f7f589b042e4e3b41c2c214d0fe3a81b36725a9"},
+  "layerzeroDevtools": {"repository":"https://github.com/LayerZero-Labs/devtools","commit":"4973ba8bef7b0fdf7268469abea3ea50dbd4bbd8","archiveSha256":"3ee24fd42bce01d1d19a52f4effb9e91455ceaadc32191a612d5f00878c49e35"},
+  "layerzeroEvmOft":"4.0.1",
+  "layerzeroOApp":"0.4.1",
+  "layerzeroSolanaSdk":"3.0.168",
+  "solc":"0.8.30",
+  "openzeppelin":"4.9.6",
+  "nodeTested":"22.14.0"
+}

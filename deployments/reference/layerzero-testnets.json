@@ -1,0 +1,318 @@
+{
+  "source": "https://metadata.layerzero-api.com/v1/metadata",
+  "retrievedAt": "2026-09-20T01:56:34.966Z",
+  "sha256": "6bbc5aa0108349fdeda4a3fff482a5607c3d585c854ce69e1995d43734ea7ae0",
+  "data": {
+    "bsc-testnet": {
+      "chainDetails": {
+        "nativeChainId": 97,
+        "name": "Binance Test Chain",
+        "shortName": "BNB",
+        "chainKey": "bsc-testnet",
+        "chainType": "evm",
+        "chainLayer": "L1",
+        "chainStatus": "ACTIVE",
+        "nativeCurrency": {
+          "name": "BNB TOKEN",
+          "symbol": "BNB",
+          "decimals": 18,
+          "cgId": "binancecoin",
+          "cmcId": 1839
+        }
+      },
+      "deployments": [
+        {
+          "version": 2,
+          "eid": "40102",
+          "stage": "testnet",
+          "chainKey": "bsc-testnet",
+          "blockedMessageLib": {
+            "address": "0x0c77d8d771ab35e2e184e7ce127f19ced31ff8c0"
+          },
+          "endpointV2": {
+            "address": "0x6edce65403992e310a62460808c4b910d972f10f"
+          },
+          "endpointV2View": {
+            "address": "0x9a8e38c2394a4ec94421750b96a67a5cef75ebfe"
+          },
+          "executor": {
+            "address": "0x31894b190a8babd9a067ce59fde0bfcfd2b18470"
+          },
+          "lzExecutor": {
+            "address": "0x2b8e58866f7312b97bd66d76bc7d911721563b71"
+          },
+          "receiveUln302": {
+            "address": "0x188d4bbced671a7aa2b5055937f79510a32e9683"
+          },
+          "sendUln302": {
+            "address": "0x55f16c442907e86d764afdc2a07c2de3bdac8bb7"
+          }
+        }
+      ],
+      "rpcs": [
+        {
+          "url": "https://api.zan.top/bsc-testnet",
+          "rank": 0
+        },
+        {
+          "url": "https://bsc-testnet.drpc.org",
+          "rank": 1
+        },
+        {
+          "url": "https://bsc-testnet-rpc.publicnode.com",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-1-s2.bnbchain.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-1-s1.bnbchain.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-2-s3.bnbchain.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-1-s2.binance.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-2-s2.binance.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-2-s2.bnbchain.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-1-s3.bnbchain.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-1-s1.binance.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-1-s3.binance.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://data-seed-prebsc-2-s1.binance.org:8545",
+          "rank": 1
+        },
+        {
+          "url": "https://bnb-testnet.api.onfinality.io/public",
+          "rank": 1
+        }
+      ],
+      "dvns": {
+        "0x53ccb44479b2666cf93f5e815f75738aa5c6d3b9": {
+          "canonicalName": "TSS",
+          "id": "tss",
+          "version": 1
+        },
+        "0x0ee552262f7b562efced6dd4a7e2878ab897d405": {
+          "canonicalName": "LayerZero Labs",
+          "id": "layerzero-labs",
+          "version": 2
+        },
+        "0x33ba0e70d74c72d3633870904244b57edfb35df7": {
+          "canonicalName": "Republic",
+          "id": "republic-crypto",
+          "version": 2
+        },
+        "0x16b711e3284e7c1d3b7eed25871584ad8d946cac": {
+          "canonicalName": "BitGo",
+          "id": "bitgo",
+          "version": 2,
+          "deprecated": true
+        },
+        "0x7baa95c10cc99c7687d31fc5b45b6b916362ed22": {
+          "canonicalName": "BitGo",
+          "id": "bitgo",
+          "version": 2
+        },
+        "0x52cd447b2c918fa13375f6e300c9722a23429b3e": {
+          "canonicalName": "Frax",
+          "id": "frax",
+          "version": 2
+        },
+        "0x6f99ea3fc9206e2779249e15512d7248dab0b52e": {
+          "canonicalName": "Google",
+          "id": "google-cloud",
+          "version": 2
+        },
+        "0x6334290b7b4a365f3c0e79c85b1b42f078db78e4": {
+          "canonicalName": "Nethermind",
+          "id": "nethermind",
+          "version": 2
+        },
+        "0x35fa068ec18631719a7f6253710ba29ab5c5f3b7": {
+          "canonicalName": "BWare",
+          "id": "bware-labs",
+          "version": 2,
+          "deprecated": true
+        },
+        "0x98a7ad52b970d9b350fdee17d3892bbe79d0132a": {
+          "canonicalName": "Horizen",
+          "id": "horizen-labs",
+          "version": 2
+        },
+        "0xcd02c60d6a23966bd74d435df235a941b35f4f5f": {
+          "canonicalName": "Delegate",
+          "id": "delegate",
+          "version": 2
+        },
+        "0x4ecbb26142a1f2233aeee417fd2f4fb0ec6e0d78": {
+          "canonicalName": "Switchboard",
+          "id": "switchboard",
+          "version": 2
+        },
+        "0xd05c27f2e47fbba82adaac2a5adb71ba57a5b933": {
+          "canonicalName": "StableLab",
+          "id": "stablelab",
+          "version": 2
+        },
+        "0x6f978ee5bfd7b1a8085a3ea9e54eb76e668e195a": {
+          "canonicalName": "Gitcoin",
+          "id": "gitcoin",
+          "version": 2,
+          "deprecated": true
+        },
+        "0xd0a6fd2e542945d81d4ed82d8f4d25cc09c65f7f": {
+          "canonicalName": "P2P",
+          "id": "p2p",
+          "version": 2
+        },
+        "0xd145588cb52abb773836405ffb8209806f74866d": {
+          "canonicalName": "Brale",
+          "id": "brale",
+          "version": 2
+        },
+        "0x1337afd780b599b0af07fb0043226f02bc7fe92f": {
+          "canonicalName": "Mantle01",
+          "id": "mantle01",
+          "version": 2
+        },
+        "0xf09be67786345618760297c1500ee2bd8abb270a": {
+          "canonicalName": "FurtherFP",
+          "id": "FurtherFP",
+          "version": 2
+        },
+        "0x8718ef0b818e23bd8a7400a4565a9bc717d2ddbf": {
+          "canonicalName": "Polyhedra zkBridge",
+          "id": "polyhedra-network",
+          "version": 1,
+          "deprecated": true
+        },
+        "0x2ddf08e397541721acd82e5b8a1d0775454a180b": {
+          "canonicalName": "Polyhedra zkBridge",
+          "id": "polyhedra-network",
+          "version": 2,
+          "deprecated": true
+        }
+      }
+    },
+    "solana-testnet": {
+      "chainDetails": {
+        "nativeChainId": 103,
+        "name": "Solana",
+        "shortName": "Solana testnet",
+        "chainKey": "solana-testnet",
+        "chainType": "solana",
+        "chainLayer": "L1",
+        "chainStatus": "ACTIVE",
+        "nativeCurrency": {
+          "name": "SOL TOKEN",
+          "symbol": "SOL",
+          "decimals": 9,
+          "cgId": "solana",
+          "cmcId": 5426
+        }
+      },
+      "deployments": [
+        {
+          "version": 2,
+          "eid": "40168",
+          "stage": "testnet",
+          "chainKey": "solana-testnet",
+          "blocked_messagelib": {
+            "address": "2XrYqmhBMPJgDsb4SVbjV1PnJBprurd5bzRCkHwiFCJB"
+          },
+          "dvn": {
+            "address": "HtEYV4xB4wvsj5fgTkcfuChYpvGYzgzwvNhgDZQNh7wW"
+          },
+          "endpointV2": {
+            "address": "76y77prsiCMvXMjuoZ5VRrhG5qYBrUMYTE5WgHqgjEn6"
+          },
+          "executor": {
+            "address": "6doghB248px58JSSwG4qejQ46kFMW4AMj7vzJnWZHNZn",
+            "pda": "AwrbHeCyniXaQhiJZkLhgWdUCteeWSGaSN1sTfLiY7xK"
+          },
+          "pricefeed": {
+            "address": "8ahPGPjEbpgGaZx2NV1iG5Shj7TDwvsjkEDcGWjt94TP"
+          },
+          "receiveUln302": {
+            "address": "7a4WjyR8VZ7yZz5XJAKm39BUGn5iT9CKcv2pmG9tdXVH"
+          },
+          "sendUln302": {
+            "address": "7a4WjyR8VZ7yZz5XJAKm39BUGn5iT9CKcv2pmG9tdXVH"
+          }
+        }
+      ],
+      "rpcs": [
+        {
+          "url": "https://api.devnet.solana.com"
+        }
+      ],
+      "dvns": {
+        "4VDjp6XQaxoZf5RGwiPU9NR1EXSZn2TP4ATMmiSzLfhb": {
+          "canonicalName": "LayerZero Labs",
+          "id": "layerzero-labs",
+          "version": 2
+        },
+        "4HxXbLv37XrivKukEbofybpHr7C8HUGJzd4B5T9USpGh": {
+          "canonicalName": "Paxos",
+          "id": "paxos",
+          "version": 2
+        },
+        "3MGL1C7jk7Qj518jbFoD9bWpiamvicxt72g8MYvmGE18": {
+          "canonicalName": "Anchorage",
+          "id": "anchorage",
+          "version": 2
+        },
+        "29EKzmCscUg8mf4f5uskwMqvu2SXM8hKF1gWi1cCBoKT": {
+          "canonicalName": "P2P",
+          "id": "p2p",
+          "version": 2
+        },
+        "ELBjsx9r8Egz6Kgvdvg8P2rTj16jHGxppoZRwh1gEwRJ": {
+          "canonicalName": "Brale",
+          "id": "brale",
+          "version": 2
+        },
+        "JCTyqTX6YxMGa8TGxQMm7WDz1MG1SZnxN4dJvytFibLd": {
+          "canonicalName": "MantleCross",
+          "id": "mantlecross",
+          "version": 2
+        },
+        "29yZtNj2N6gupz2358ADZu77k7gPJ4L487aXfi7HuFvq": {
+          "canonicalName": "Bridge",
+          "id": "bridge",
+          "version": 2
+        },
+        "42Uf6jm134SvZEsFpZ8kNN7KXALN2im9mBJdmUH7Gszb": {
+          "canonicalName": "FurtherFP",
+          "id": "FurtherFP",
+          "version": 2
+        }
+      }
+    }
+  }
+}

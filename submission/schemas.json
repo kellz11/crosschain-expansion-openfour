@@ -1,0 +1,23 @@
+{
+  "preset": "CrossChainExpansion",
+  "version": "0.1.0",
+  "tokenParams": {
+    "kind": "token",
+    "version": 1,
+    "note": "UI integration schema for unchanged StandardTokenModule; not discoverable from its missing moduleEncodeSchema method",
+    "params": [
+      {"name":"sourceEid","abiType":"uint32","decimals":0,"optional":false},
+      {"name":"sourcePeer","abiType":"bytes32","decimals":0,"optional":false},
+      {"name":"sourceMint","abiType":"bytes32","decimals":0,"optional":false},
+      {"name":"depositor","abiType":"bytes32","decimals":0,"optional":false},
+      {"name":"depositId","abiType":"bytes32","decimals":0,"optional":false},
+      {"name":"beneficiary","abiType":"address","decimals":0,"optional":false}
+    ]
+  },
+  "curveParams": {"kind":"curve","version":1,"params":[{"name":"p0","abiType":"uint256","decimals":18},{"name":"virtualTokens","abiType":"uint256","decimals":18}]},
+  "migrateParams": {"kind":"migrate","version":1,"params":[{"name":"adapter","abiType":"address"},{"name":"lpRecipient","abiType":"address"}]},
+  "vaultParams":"0x",
+  "tradeParams":"0x",
+  "customDataParams":"0x",
+  "outerCreationConstraints":{"antiSniperEnabled":false,"presaleQuote":"0"}
+}
