@@ -49,6 +49,10 @@ contract MockPair is ERC20 {
     function mint(address to, uint256 n) external {
         _mint(to, n);
     }
+    // Test-only outgoing pool leg; this mock does not implement AMM pricing or invariant checks.
+    function transferAsset(address token, address to, uint256 amount) external {
+        require(IERC20(token).transfer(to, amount));
+    }
 }
 contract MockV2Router {
     mapping(address => mapping(address => address)) public getPair;

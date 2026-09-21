@@ -7,15 +7,15 @@
     "ExpansionTypes": 57,
     "MockCore": 7756,
     "MockEndpoint": 2157,
-    "MockPair": 2387,
+    "MockPair": 2594,
     "MockQuote": 2387,
-    "MockV2Router": 4322,
+    "MockV2Router": 4529,
     "MockSimpleTradeModule": 1896,
     "ExpansionCurveModule": 6406,
     "ExpansionMigrateModule": 8288,
     "PancakeV2ExpansionAdapter": 3487,
     "EligibilityPriceAttestor": 3721,
-    "ExpansionToken": 10128,
+    "ExpansionToken": 10780,
     "ExpansionPresetValidator": 2549
   }
 }

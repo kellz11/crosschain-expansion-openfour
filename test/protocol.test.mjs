@@ -211,6 +211,7 @@ test("OpenFour public-interface reference: funding, trading, migration and stand
       assert.equal(await bridge.publicMode(), true);
       assert.equal(await quote.balanceOf(vault.target), 0n);
       assert.equal(await token.balanceOf(vault.target), 0n);
+      assert.equal(await token.balanceOf(await token.POOL_TAX_RECIPIENT()), 0n);
       const pool = await migrate.pool();
       assert.equal(await quote.balanceOf(pool), b);
       assert((await token.balanceOf(pool)) <= D - G + U / 2n);
@@ -220,9 +221,65 @@ test("OpenFour public-interface reference: funding, trading, migration and stand
     },
   );
   await t.test(
+    "0.15% registered pool tax: buy, sell, rounding, rollback and untaxed wallet transfers",
+    async () => {
+      const recipient = "0x2b057980e924B2aA8f6B80Bb5c8A669EE3753dc1";
+      assert.equal(await token.POOL_TAX_RECIPIENT(), recipient);
+      assert.equal(await token.POOL_TAX_BPS(), 15n);
+      const pair = at("MockPair", await migrate.pool(), f.signer);
+      const userAddress = await user.getAddress();
+      const amount = 1000n * U;
+      const fee = (amount * 15n) / 10000n;
+      const supply = await token.totalSupply();
+      const beforeBuy = await token.balanceOf(userAddress);
+      const poolBefore = await token.balanceOf(pair.target);
+      const receipt = await (await pair.transferAsset(token.target, userAddress, amount)).wait();
+      assert.equal(await token.balanceOf(userAddress), beforeBuy + amount - fee);
+      assert.equal(await token.balanceOf(pair.target), poolBefore - amount);
+      assert.equal(await token.balanceOf(recipient), fee);
+      const taxEvent = receipt.logs
+        .map((l) => {
+          try {
+            return token.interface.parseLog(l);
+          } catch {
+            return null;
+          }
+        })
+        .find((l) => l?.name === "PoolTaxPaid");
+      assert.equal(taxEvent.args.amount, fee);
+      // Sell via transferFrom: allowance and sender are charged gross, pool receives net.
+      await (await token.connect(user).approve(await f.signer.getAddress(), amount)).wait();
+      await (await token.transferFrom(userAddress, pair.target, amount)).wait();
+      assert.equal(await token.allowance(userAddress, await f.signer.getAddress()), 0n);
+      assert.equal(await token.balanceOf(userAddress), beforeBuy - fee);
+      assert.equal(await token.balanceOf(pair.target), poolBefore - fee);
+      assert.equal(await token.balanceOf(recipient), 2n * fee);
+      for (const tiny of [0n, 1n, 666n, 667n, 10001n]) {
+        const before = await token.balanceOf(recipient);
+        const poolBalance = await token.balanceOf(pair.target);
+        await (await token.connect(user).transfer(pair.target, tiny)).wait();
+        assert.equal((await token.balanceOf(recipient)) - before, (tiny * 15n) / 10000n);
+        assert.equal((await token.balanceOf(pair.target)) - poolBalance, tiny - (tiny * 15n) / 10000n);
+      }
+      const collected = await token.balanceOf(recipient);
+      const other = await (await f.provider.getSigner(3)).getAddress();
+      const otherBefore = await token.balanceOf(other);
+      await (await token.connect(user).transfer(other, amount)).wait();
+      assert.equal(await token.balanceOf(other), otherBefore + amount);
+      assert.equal(await token.balanceOf(recipient), collected);
+      const userBeforeFailure = await token.balanceOf(userAddress);
+      await rejects(token.connect(user).transfer(pair.target, userBeforeFailure + 1n, { gasLimit: 500000 }));
+      assert.equal(await token.balanceOf(userAddress), userBeforeFailure);
+      assert.equal(await token.balanceOf(recipient), collected);
+      await rejects(token.connect(user).setMigratedPool(other, true));
+      assert.equal(await token.totalSupply(), supply);
+    },
+  );
+  await t.test(
     "post-graduation authenticated mint, standard OFT burn, dust retention, pause and replay",
     async () => {
       const guid = ethers.id("public");
+      const taxBeforeBridge = await token.balanceOf(await token.POOL_TAX_RECIPIENT());
       await f.deliver(f.packet(await user.getAddress(), 100n * SD), {}, guid);
       assert.equal(await token.totalSupply(), D + 100n * SD);
       await rejects(f.deliver(f.packet(await user.getAddress(), 100n * SD), {}, guid));
@@ -243,6 +300,7 @@ test("OpenFour public-interface reference: funding, trading, migration and stand
       ).wait();
       assert.equal(before - (await token.balanceOf(await user.getAddress())), 50n * SD);
       assert.equal(await token.totalSupply(), D + 50n * SD);
+      assert.equal(await token.balanceOf(await token.POOL_TAX_RECIPIENT()), taxBeforeBridge);
       const wire = await endpoint.lastMessage();
       assert.equal(BigInt("0x" + wire.slice(66, 82)), 50n);
       await (await bridge.setPaused(true)).wait();

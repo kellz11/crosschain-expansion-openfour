@@ -18,6 +18,7 @@ Our team operates source custody, admission, price attestations, LayerZero secur
 - [ ] maxSupply means initial inventory for this token type; post-migration OFT imports are not incorrectly blocked/indexed.
 - [ ] Core enforces antiSniperEnabled=false, presaleQuote=0 and agreed aggregate fee maximum outside the public validator input.
 - [ ] StandardVault sell accounting matches potential F(x) after actual Core fee handling.
+- [ ] Review the fixed 0.15% post-migration [pool token tax](POOL_TAX.md), recipient wallet and fee-on-transfer-compatible routing/slippage. Test buys, sells and later liquidity additions/removals against the actual PancakeSwap router; show the tax separately from DEX fees.
 - [ ] Production sold-out threshold is confirmed; reference uses <=1e18 remainder.
 - [ ] Internal migrator/adapter availability reviewed; V2 vs Infinity target and LP lock/burn policy approved.
 - [ ] Fresh-pair front-running/DoS handled by supported production migration implementation or accepted as a release blocker.

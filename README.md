@@ -6,6 +6,8 @@ This is a compiling reference for engineering review, not an audited release or 
 
 ## Run
 
+**Pool token tax:** after graduation, registered pool transfers pay 0.15% to `0x2b057980e924B2aA8f6B80Bb5c8A669EE3753dc1`, in the expansion token. This is additional to DEX fees and also affects later liquidity additions/removals. Wallet transfers, initial migration and bridge mint/burn remain untaxed. See [tax policy and integration limits](docs/POOL_TAX.md).
+
 ```sh
 npm ci
 npm test
@@ -26,7 +28,7 @@ Node 22.14.0 recommended. No Foundry installation is required; solc-js compiles 
 5. [Threat model and coverage gaps](docs/THREAT_MODEL.md), [security policy](docs/SECURITY.md), [test report](docs/TEST_REPORT.md).
 6. [What Four.Meme actually has to do](docs/FOURMEME_REVIEW_CHECKLIST.md).
 
-The [engineer FAQ](docs/ENGINEER_FAQ.md) answers all 31 requested integration questions. The executed suite includes 13 EVM/economic tests and 2 Solana SDK tests; live network and production-Core validation remain pending.
+The [engineer FAQ](docs/ENGINEER_FAQ.md) answers all 31 requested integration questions. The executed suite includes 14 EVM/economic tests and 2 Solana SDK tests; live network and production-Core validation remain pending.
 
 ## Composition
 

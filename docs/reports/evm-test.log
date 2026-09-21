@@ -1,35 +1,3 @@
-
-> crosschain-expansion-reference@0.1.0 test
-> npm run compile && node --test --test-concurrency=1 test/*.test.mjs
-
-
-> crosschain-expansion-reference@0.1.0 compile
-> node scripts/compile.mjs
-
-Compiled 75 source units using 0.8.30+commit.73712a01.Emscripten.clang
-{
-  ExpansionBridgeFactory: 14917,
-  ExpansionOFTAdapter: 12481,
-  SourceRegistry: 833,
-  ExpansionTypes: 57,
-  MockCore: 7756,
-  MockEndpoint: 2157,
-  MockPair: 2387,
-  MockQuote: 2387,
-  MockV2Router: 4322,
-  MockSimpleTradeModule: 1896,
-  ExpansionCurveModule: 6406,
-  ExpansionMigrateModule: 8288,
-  PancakeV2ExpansionAdapter: 3487,
-  EligibilityPriceAttestor: 3721,
-  ExpansionToken: 10128,
-  ExpansionPresetValidator: 2549
-}
-npm notice
-npm notice New major version of npm available! 10.9.2 -> 12.0.2
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
-npm notice To update run: npm install -g npm@12.0.2
-npm notice
 TAP version 13
 # {
 #   cases: 2304,
@@ -84,7 +52,7 @@ TAP version 13
 # Subtest: deterministic multi-parameter integer economics sweep
 ok 1 - deterministic multi-parameter integer economics sweep
   ---
-  duration_ms: 199.8773
+  duration_ms: 185.5362
   ...
 # This version of µWS is not compatible with your Node.js build:
 # Error: Cannot find module '../binaries/uws_win32_x64_127.node'
@@ -96,57 +64,62 @@ ok 1 - deterministic multi-parameter integer economics sweep
     # Subtest: initial mint suppressed; implementations locked; module tags and schemas match ABI
     ok 1 - initial mint suppressed; implementations locked; module tags and schemas match ABI
       ---
-      duration_ms: 363.6098
+      duration_ms: 450.361
       ...
     # Subtest: preset rejects insolvent split, foreign quote, foreign adapter and extra data
     ok 2 - preset rejects insolvent split, foreign quote, foreign adapter and extra data
       ---
-      duration_ms: 102.4178
+      duration_ms: 127.4399
       ...
     # Subtest: bootstrap rejects wrong domain/peer/depositor/recipient/cap and non-endpoint caller
     ok 3 - bootstrap rejects wrong domain/peer/depositor/recipient/cap and non-endpoint caller
       ---
-      duration_ms: 310.6556
+      duration_ms: 317.0588
       ...
     # Subtest: exact bootstrap credits committed inventory; duplicate packets and pre-migration public imports fail
     ok 4 - exact bootstrap credits committed inventory; duplicate packets and pre-migration public imports fail
       ---
-      duration_ms: 379.8558
+      duration_ms: 432.4366
       ...
     # Subtest: attestation rejects stale, future, low eligibility, wrong price/domain and signer
     ok 5 - attestation rejects stale, future, low eligibility, wrong price/domain and signer
       ---
-      duration_ms: 666.8054
+      duration_ms: 818.108
       ...
     # Subtest: buys and sells telescope; transfers retain sellability; reserve mismatch is rejected
     ok 6 - buys and sells telescope; transfers retain sellability; reserve mismatch is rejected
       ---
-      duration_ms: 791.9923
+      duration_ms: 1138.2526
       ...
     # Subtest: reverse quote maximality and seeded randomized solvency on deployed Solidity
     ok 7 - reverse quote maximality and seeded randomized solvency on deployed Solidity
       ---
-      duration_ms: 35948.6871
+      duration_ms: 41701.21
       ...
     # Subtest: pre-migration outbound, unauthorized migration and pause violations fail
     ok 8 - pre-migration outbound, unauthorized migration and pause violations fail
       ---
-      duration_ms: 291.2126
+      duration_ms: 305.1172
       ...
     # Subtest: sellout dust threshold handled; migration failure rolls back and retries exactly once
     ok 9 - sellout dust threshold handled; migration failure rolls back and retries exactly once
       ---
-      duration_ms: 1667.2899
+      duration_ms: 1822.453
+      ...
+    # Subtest: 0.15% registered pool tax: buy, sell, rounding, rollback and untaxed wallet transfers
+    ok 10 - 0.15% registered pool tax: buy, sell, rounding, rollback and untaxed wallet transfers
+      ---
+      duration_ms: 2043.5411
       ...
     # Subtest: post-graduation authenticated mint, standard OFT burn, dust retention, pause and replay
-    ok 10 - post-graduation authenticated mint, standard OFT burn, dust retention, pause and replay
+    ok 11 - post-graduation authenticated mint, standard OFT burn, dust retention, pause and replay
       ---
-      duration_ms: 578.7618
+      duration_ms: 625.0757
       ...
-    1..10
+    1..11
 ok 2 - OpenFour public-interface reference: funding, trading, migration and standard OFT send
   ---
-  duration_ms: 42946.0994
+  duration_ms: 51790.8935
   ...
 # This version of µWS is not compatible with your Node.js build:
 # Error: Cannot find module '../binaries/uws_win32_x64_127.node'
@@ -157,19 +130,14 @@ ok 2 - OpenFour public-interface reference: funding, trading, migration and stan
 # Subtest: normalized cross-chain supply with explicitly modeled source escrow and in-flight packets
 ok 3 - normalized cross-chain supply with explicitly modeled source escrow and in-flight packets
   ---
-  duration_ms: 5957.4683
+  duration_ms: 6283.5235
   ...
 1..3
-# tests 13
+# tests 14
 # suites 0
-# pass 13
+# pass 14
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 50186.8268
-npm notice
-npm notice New major version of npm available! 10.9.2 -> 12.0.2
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
-npm notice To update run: npm install -g npm@12.0.2
-npm notice
+# duration_ms 61135.2793

@@ -1,5 +1,13 @@
 # Executed test report
 
+## 2026-09-21 pool token tax update
+
+Recompiled all 75 Solidity source units; ExpansionToken runtime is 10,780 bytes, below EIP-170. The full EVM/economics regression suite passed **14 tests, 0 failures, 0 skipped** in 61.1 seconds. Formatting and the 38-file upstream integrity check passed. Updated execution evidence is in reports/evm-test.log and reports/build-report.json.
+
+The added deployed-Solidity test covers the 15-bps constant and exact recipient; buy/sell pool transfer legs; gross transferFrom allowance; exact token balance deltas; rounding at 666/667 base units; zero transfers; failed-transfer atomic rollback; unauthorized pool registration; supply conservation; and untaxed wallet transfers. Existing migration and OFT tests now also assert no protocol tax during migration or bridge mint/burn. The router/pair remain test doubles, so this does not establish real AMM or fee-on-transfer router compatibility. See [POOL_TAX.md](POOL_TAX.md). Solana code was unchanged; its previous results below were not rerun for this update. GitHub CI for this update is separate from this local test evidence.
+
+## Original baseline
+
 Run date: 2026-09-20 UTC (September 19 US Eastern). Environment: Windows, Node 22.14.0, npm 10.9.2, solc-js `0.8.30+commit.73712a01.Emscripten.clang`, Ganache 7.9.2, Shanghai EVM, optimizer 200/viaIR.
 
 | Check | Observed result |

@@ -10,8 +10,8 @@
 | Backed bridge mint/burn | No OpenFour component | Custom bridge + token extension | Standard LayerZero MintBurnOFTAdapter separates OApp constructor/ownership from token clone |
 | Real inventory and quote custody | StandardVault | Reuse unchanged | No special custody semantics needed; inventory arrives after creation |
 | Source-valued virtual price/depth | BondingCurveModule | Custom reference fallback | Parameter schema/math unavailable; replace fallback if Four.Meme demonstrates equivalent bounds and initialization |
-| Ordinary internal buy/sell | SimpleTradeModule | Reuse requested; mock locally | No receipt, tax or custom trade policy required |
-| Platform/protocol fees | Core FeeRouter/module author share | Reuse platform policy | Reference takes no extra protocol fee; cap aggregate fees at reviewed preset/UI level; no claim validator can inspect unavailable Core fee config |
+| Ordinary internal buy/sell | SimpleTradeModule | Reuse requested; mock locally | No receipt or bonding-curve tax; post-migration pool transfers pay the fixed token tax |
+| Platform/protocol fees | Core FeeRouter/module author share | Reuse platform policy | Fixed 15-bps post-migration pool token tax to the protocol wallet, separate from DEX/Core fees; see POOL_TAX.md. No claim validator can inspect unavailable Core fee config |
 | Graduation | BondingPcsV2MigrateModule | Thin custom fallback | Need measured reserve, safe remainder return, successful-execution signal; production implementation unavailable |
 | DEX liquidity | Public V2 migration adapter interface | Implement fallback V2 adapter | Existing adapter may replace only after matching prefunding and LP checks |
 | Cross-module persistent state | CustomData | Omit | Bridge stores funding; token stores activation/identity; migration stores execution |

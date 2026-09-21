@@ -45,3 +45,7 @@ No owner quote withdrawal exists in new protocol contracts. StandardVault trusts
 New sources implement the canonical OFT debit/credit boundary and asset verifier; new destinations implement launch lifecycle and migration adapters. EIDs are not EVM chain IDs. Base/Ethereum require verified endpoint and launch integration deployments; no support is claimed for an unverified Robinhood Chain environment. Adding peers to a running launch requires a new reviewed deployment/version rather than an unrestricted owner function.
 
 See ADR-001 for decisions, THREAT_MODEL for failure coverage, DEPLOYMENT for reproducibility, and FOURMEME_REVIEW_CHECKLIST for gates.
+
+## Post-migration token tax
+
+Registered pool transfers pay 15 bps to the fixed protocol wallet, separately from DEX fees. The tax preserves total supply and leaves initial migration, wallet transfers and bridge mint/burn untaxed. Later liquidity operations are taxed. See [POOL_TAX.md](POOL_TAX.md) for exact arithmetic, recipient and routing requirements.
