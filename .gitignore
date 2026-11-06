@@ -4,3 +4,9 @@ artifacts/
 *.key
 work/
 deployments/local.json
+cache/
+developer/startup/artifacts/
+developer/startup/cache/
+developer/fork-deploy/out/
+developer/workbench/data/*.json
+*.log

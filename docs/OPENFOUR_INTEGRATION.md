@@ -1,59 +1,50 @@
-# OpenFour integration and submission
+# BNB OpenFour integration — 0.2.0
 
-## Compatibility matrix
+Destination: BNB Chain (56), BNB testnet (97), or local BNB fork (31337). Operational tools allow only 97/31337; the automated lifecycle verifier allows localhost/31337 only. Source: canonical Solana Adapter, EID 30168 for future BNB mainnet or 40168 for BNB testnet. Bridge factories verify destination endpoint EID 30102/40102 respectively. No alternate destination or arbitrary source EID is accepted.
 
-| Requirement | Existing component | Reuse/custom | Reason / confirmation |
-|---|---|---|---|
-| Destination ERC20 metadata/module getters/phases | OpenFourToken | Inherit | Preserve standard behavior, suppress unbacked initial mint |
-| Token initialization | StandardTokenModule | Reuse unchanged | Calls virtual initialize on selected token implementation |
-| Existing destination token market | Core clone flow | Not assumed supported | No public external-token create lifecycle established |
-| Backed bridge mint/burn | No OpenFour component | Custom bridge + token extension | Standard LayerZero MintBurnOFTAdapter separates OApp constructor/ownership from token clone |
-| Real inventory and quote custody | StandardVault | Reuse unchanged | No special custody semantics needed; inventory arrives after creation |
-| Source-valued virtual price/depth | BondingCurveModule | Custom reference fallback | Parameter schema/math unavailable; replace fallback if Four.Meme demonstrates equivalent bounds and initialization |
-| Ordinary internal buy/sell | SimpleTradeModule | Reuse requested; mock locally | No receipt or bonding-curve tax; post-migration pool transfers pay the fixed token tax |
-| Platform/protocol fees | Core FeeRouter/module author share | Reuse platform policy | Fixed 15-bps post-migration pool token tax to the protocol wallet, separate from DEX/Core fees; see POOL_TAX.md. No claim validator can inspect unavailable Core fee config |
-| Graduation | BondingPcsV2MigrateModule | Thin custom fallback | Need measured reserve, safe remainder return, successful-execution signal; production implementation unavailable |
-| DEX liquidity | Public V2 migration adapter interface | Implement fallback V2 adapter | Existing adapter may replace only after matching prefunding and LP checks |
-| Cross-module persistent state | CustomData | Omit | Bridge stores funding; token stores activation/identity; migration stores execution |
-| Cross-module constraints | Preset Validator | New | Fixed quote/adapter/LP policy, decimal, split, reserve and schema consistency |
-| Source attestation/discovery | None | Protocol service | Four.Meme does not run source custody or collect Solana price data |
+## Composition
 
-## Proposed registration
-
-Preset name `CrossChainExpansion`; version `0.1.0`; purpose: existing backed assets expanding through OpenFour. Author/website/audit contact must be filled by submitting team. No deployed production addresses exist in this package.
-
-| Slot | Proposed key source/tag | Version |
+| Slot | Implementation | Registry key source |
 |---|---|---|
-| Token implementation | `token.crosschain_expansion` | 0.1.0 |
-| TokenModule | existing `module.token.standard` | Four.Meme registry snapshot |
-| Vault | existing `module.vault.standard` | Four.Meme registry snapshot |
-| Curve | `module.curve.crosschain_expansion` | 0.1.0 |
-| Trade | existing `module.trade.simple` | Four.Meme registry snapshot |
-| Migrate | `module.migrate.crosschain_expansion_v2` | 0.1.0 |
-| CustomData | zero ID | absent |
+| Token body | ExpansionToken inherits OpenFourToken | token.bnb_expansion_v2 |
+| Token module | ExpansionTokenModule; standard initializer with bootstrap schema | module.token.bnb_expansion_v2 |
+| Vault | Existing StandardVault | Existing VAULT_BASIC key |
+| Curve | ExpansionCurveModule | module.curve.bnb_expansion_v2 |
+| Trade | Existing SimpleTradeModule | Existing TRADE_SIMPLE key |
+| Migration | ExpansionMigrateModule | module.migrate.bnb_expansion_v2 |
+| CustomData | None | Zero hash |
 
-`moduleId/tokenImplId = keccak256(UTF8(key source string))`; `tagId = bytes8(keccak256(UTF8(tag)))`. Registry officials determine final IDs. Implemented descriptors take version from initialization. No invented module.data tag exists. `ExpansionPresetValidator` constructor binds the actual assigned preset ID, WBNB, approved migration adapter, LP lock/burn recipient. Local harness uses ID 1 only as a test fixture.
+Custom IDs are keccak256 of the UTF-8 key. Module descriptor tag IDs are the first eight hash bytes. Custom version is 0.2.0. The fork preset ID is 2026110502, a development fixture; official assignment is pending. The validator fixes preset ID, WBNB, adapter and LP recipient. The local fork uses a burn recipient for LP.
 
-## Exact parameters
+Current OpenFour instantiates modules through Registry-managed beacons. Registry/Core governance is therefore a continuing trust boundary. Do not describe those modules as immutable clones. Initializers accept Core or its Registry-authorized CreateDeployer and verify their token-module binding; runtime migration remains Core-only. No closed OpenFour implementation source is copied or compiled.
 
-Base: maxSupply=D (bootstrap inventory, **not global source supply**); saleAmount=G; raiseAmount=ceil(B0 G/(V−G)); quoteAsset=verified WBNB; tokenSalt/name/symbol/URI per Core schema. Post-graduation totalSupply can exceed initial maxSupply as more canonical source tokens bridge; Four.Meme indexers must not interpret this field as an immutable global cap.
+## Creation and schemas
 
-* tokenParams: ABI tuple `(uint32 sourceEid,bytes32 sourcePeer,bytes32 sourceMint,bytes32 depositor,bytes32 depositId,address beneficiary)`.
-* curveParams: `(uint256 p0,uint256 virtualTokens)`; 18-decimal price and inventory.
-* migrateParams: `(address adapter,address lpRecipient)`.
-* vaultParams, tradeParams, customDataParams: empty bytes.
-* antiSniperEnabled=false and presaleQuote=0 in outer CreateTokenArgs; these fields are **not available** to the public preset validator. Core/API must enforce them, or extend validator input before production.
+CreateTokenArgs includes `partner` after `antiSniperEnabled`. The full current tuple and domain-bound signing helper are in `scripts/openfour/encoding.mjs`. The creation signature binds the chain, caller and hash of the entire encoded tuple. It is distinct from the price attestation.
 
-The standard TokenModule publishes no custom token-parameter schema. `submission/schemas.json` is the exact token group schema for the small expansion UI extension. Curve and migration schemas are on-chain. Four.Meme must confirm whether Tools can associate this token schema with the selected token implementation, or route this group through its UI integration. We do not falsely claim automatic schema discovery through the unchanged StandardTokenModule.
+The on-chain token module publishes all six fields through `Tools.getPresetEncodeSchemas`:
 
-## Conditions for replacing fallback modules
+- tokenParams: (uint32 sourceEid, bytes32 sourcePeer, bytes32 sourceMint, bytes32 depositor, bytes32 depositId, address beneficiary).
+- curveParams: (uint256 p0, uint256 virtualTokens).
+- migrateParams: (address adapter, address lpRecipient).
+- vaultParams, tradeParams and customDataParams: empty bytes.
 
-Curve must allow source-derived arbitrary P0 and depth V, zero initial real quote, exact sale cap, reserve-bounded sells, shared decimal precision, and deterministic migration reserves after fees. Show buy/reverse/sell equivalence and dust behavior. Standard migrator must not destroy backed inventory with a dead-address transfer then release source backing. It must handle <=1-token remainder, pair actual quote with bounded tokens, reconcile unused tokens, preserve atomic retry and expose verifiable success. If it lacks `executed()`, replace the bridge's graduation proof interface through a reviewed bridge version; do not simply point this bridge at a different migrator.
+Base fields: maxSupply=D (initial inventory, not global supply); saleAmount=G; raiseAmount=ceil(B0*G/(V-G)); quoteAsset=WBNB. Presale must be zero and anti-sniper disabled. Our encoding helper enforces these, but the public validator receives only TokenInitParams. The production creation signer must enforce the outer fields too. Post-graduation imports can make totalSupply exceed initial maxSupply; indexers must handle that meaning correctly.
 
-## UI/indexing
+## Lifecycle
 
-Show source mint/store/program/explorer identity, eligibility evidence, attestation age, committed inventory, initial valuation, virtual depth separately from actual WBNB, funding/activation status, curve progress, expected LP/returned inventory, fees, migration result, and both bridge directions' pause/config status. Disable buy/sell buttons while token.active=false even if Core's phase says Trading. Public destination bridge opening and source unpause are separate events. Standard Core handles price quotes, slippage, deadlines, fees and discovery. Our backend provides source evidence and bridge telemetry.
+1. Core creates an initially empty token/vault and bound modules. Migration initialization creates or reuses the empty Pancake pair and registers it on the token before bootstrap supply exists.
+2. Exactly one authenticated bootstrap credits the committed inventory to the vault. Public bridge traffic stays closed.
+3. A fresh, eligible price observation matching fixed P0 activates trading. Tools supplies fee-inclusive estimates; Core owns settlement through FeeRouter and StandardVault, including the current vault sell path.
+4. Net quote reserve follows the potential F(x). At the sold-out threshold, migration uses actual WBNB and bounded tokens, verifies pool reserves and LP delivery, and returns surplus inventory. Any failure rolls back.
+5. Destination public bridging requires both successful migration and final Migrated phase. The source separately unpauses after finality.
 
-## Submission fields/events/errors
+Quote-only pool donations, synced or unsynced, are accepted. They accrue to the LP; the opening ratio can be above the undonated curve target. Nonzero token reserves or existing LP supply are rejected. Direct pair funding/minting avoids the router's one-sided reserve quoting failure.
 
-Include source files, lockfiles, hashes, constructor arguments, schemas, expected composition, test logs, known limitations, independent audit status **not audited**, author/contact **to be supplied**, deployment addresses **pending**, and registry review ID **pending**. Events: SourceEnrolled; BridgeCreated; BootstrapCredited; Activated; ExpansionMigrated; BridgePaused; standard OFTSent/OFTReceived and OpenFour token/vault/Core events. Errors use explicit `Source:`, `Factory:`, `Bridge:`, `Token:`, `Oracle:`, `Curve:`, `Migrate:`, `PCS:`, `Validator:` reason prefixes plus upstream custom errors. ABIs generated by compile are authoritative; frontends must decode upstream errors too.
+## Verification and release
+
+`npm run test:fork` deploys independent proxies pointing to the public BNB testnet implementations, checks ownership/signer, registers these slots, uses Tools schemas, and exercises creation, funding, activation, buys, sells, migration and taxed Pancake swaps. See [test report](TEST_REPORT.md) and its machine-readable evidence. Source admission and LayerZero transport are explicitly fixtures in this run.
+
+Production still requires official registration, reviewed creation-signing policy, source/DVN configuration, live deposit-to-redemption reconciliation, failed-launch recovery policy and independent audit. No public Registry mutation or official submission is part of the local fork test.
+
+The launch UI needs source identity/evidence, funding and activation status, virtual versus actual liquidity, fees, graduation result and both bridge pause states. Disable trading until active. Use the published schemas rather than a separate hard-coded bootstrap form. See [release checklist](FOURMEME_REVIEW_CHECKLIST.md).

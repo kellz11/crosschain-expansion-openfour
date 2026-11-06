@@ -1,35 +1,34 @@
-# Four.Meme review package — CrossChainExpansion 0.1.0
+# Four.Meme review package — BNBExpansion 0.2.0
 
-## What Four.Meme actually has to do
+The current code integrates the published OpenFour BNB testnet implementations through a developer-owned local fork. BNB is the only launch destination; Solana provides backing.
 
-1. Review the token extension, OFT boundary, fallback curve/migration modules, validator, schemas and test evidence.
-2. Confirm the public lifecycle matches internal Core behavior, especially asynchronous funding, disabled anti-sniper/presale, fee accounting and atomic migration retry.
-3. Supply/register reviewed standard module versions and the approved Expansion Preset; replace fallback curve/migration modules only after equivalence tests pass.
-4. Add source identity, funding/activation, token-parameter schema and bridge-state fields to existing launch UI/discovery.
-5. Run the supplied local suite and the shared testnet acceptance procedure using internal Core/Registry and the supported PancakeSwap/LP policy.
+## Verified in the developer-owned fork
 
-Our team operates source custody, admission, price attestations, LayerZero security configuration, source bootstrap and bridge monitoring. Four.Meme continues its existing Core, trading, fee and migration operations.
+- [x] Core creates the custom token with zero initial supply.
+- [x] CreateDeployer initializes and binds the custom modules.
+- [x] Tools discovers all six token bootstrap fields.
+- [x] Unfunded trading fails; exact fixture bootstrap funds the real StandardVault.
+- [x] Real Core/FeeRouter buy and sell settlement preserve F(x).
+- [x] Empty pre-created Pancake pair is reused and registered before funding.
+- [x] Pre-graduation token transfer into the pool fails.
+- [x] Synced WBNB-only donation does not block migration.
+- [x] Graduation verifies actual reserves, LP recipient, emptied vault and one-time execution.
+- [x] Real Pancake fee-on-transfer buy/sell paths collect the existing 0.15% token tax.
 
-## Blocking acceptance checks
+See [machine-readable fork evidence](reports/openfour-fork.json). These are local-fork results, not live LayerZero or Solana execution.
 
-- [ ] Internal Core supports token creation with zero supply and later vault credit without independent minting.
-- [ ] Inactive created markets cannot be bought through alternative quote/trade paths; UI displays the funding gate.
-- [ ] Standard TokenModule can receive the supplied tokenParams and Tools/UI schema routing is agreed.
-- [ ] maxSupply means initial inventory for this token type; post-migration OFT imports are not incorrectly blocked/indexed.
-- [ ] Core enforces antiSniperEnabled=false, presaleQuote=0 and agreed aggregate fee maximum outside the public validator input.
-- [ ] StandardVault sell accounting matches potential F(x) after actual Core fee handling.
-- [ ] Review the fixed 0.15% post-migration [pool token tax](POOL_TAX.md), recipient wallet and fee-on-transfer-compatible routing/slippage. Test buys, sells and later liquidity additions/removals against the actual PancakeSwap router; show the tax separately from DEX fees.
-- [ ] Production sold-out threshold is confirmed; reference uses <=1e18 remainder.
-- [ ] Internal migrator/adapter availability reviewed; V2 vs Infinity target and LP lock/burn policy approved.
-- [ ] Fresh-pair front-running/DoS handled by supported production migration implementation or accepted as a release blocker.
-- [ ] Real Core calls initialize/phase/migration in an atomic transaction and permits retry after failure.
-- [ ] Code/source verification, independent audit, adversarial callback/fee tests and actual PCS fork tests completed.
-- [ ] Source mint/program/escrow/TVL verified; source role and upgrade authority policy approved.
-- [ ] Source↔BNB DVN/library/confirmation/executor configuration reviewed, including malicious configuration threat.
-- [ ] Real devnet/testnet escrow, delivery, retry, graduation, source unpause and return unlock executed and reconciled.
-- [ ] Failed-launch recovery policy agreed: this reference has no cancellation/refund/repricing route.
-- [ ] Author/contact, audit link, submission ID and deployment addresses filled.
+## Before official registration / production
 
-## Review conclusion
+- [ ] Agree creation signer policy: presaleQuote=0, antiSniperEnabled=false, permitted partner and aggregate fees. The public validator does not receive those outer fields.
+- [ ] Approve LP destination, pool donation behavior and the fixed tax recipient. Later liquidity additions/removals are taxed and need additional acceptance tests.
+- [ ] Approve maxSupply as initial inventory; post-migration imports can increase supply.
+- [ ] Review Registry/Core beacon and upgrade governance.
+- [ ] Agree failed-launch recovery policy; this version has no cancellation/refund/repricing route.
+- [ ] Complete independent security audit and remaining callback/liquidity-operation tests.
+- [ ] Verify real source mint/program/store/escrow/TVL and governance.
+- [ ] Review both LayerZero directions: peer, DVN, libraries, confirmations, executor, options and source unpause.
+- [ ] Run live devnet/testnet deposit, delivery/retry, graduation and redemption; reconcile all finalized supply and pending claims.
+- [ ] Provide production funding/activation/bridge-state UI and monitoring.
+- [ ] Supply author/contact, public review deployment, audit link and official preset ID.
 
-The package demonstrates a compiling, locally tested minimum public-interface integration. It does not establish production compatibility or a completed network integration. The largest unresolved question is Core's asynchronous zero-supply lifecycle; resolving it is more valuable than adding a custom custody module. Source and endpoint trust risks remain even when every local test passes.
+Our team operates source custody, admission, attestations, bridge configuration and monitoring. OpenFour owns its platform governance, trading, fees, vault and official registration. No official Registry writes or production deployment were performed.

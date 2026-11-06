@@ -4,9 +4,9 @@
 2. **Why not another launchpad?** No standalone creation/trading/discovery infrastructure replaces Core; modules execute inside its lifecycle.
 3. **What does LayerZero do?** Authenticated OFT messaging and canonical debit/credit mechanics under configured DVN trust.
 4. **What does our protocol do?** Source admission/custody operations, bridge configuration, bootstrap restrictions, price/eligibility activation, backing monitoring and expansion-specific integration.
-5. **What does OpenFour do?** Deploy modules/token clones, trade and fee orchestration, vault custody, discovery and migration coordination.
-6. **Reused modules?** StandardTokenModule, StandardVault, production SimpleTradeModule requested; Core/Registry remain Four.Meme's.
-7. **New modules?** Token implementation, curve fallback, migration fallback and validator; bridge, factory, registry and verifier are outside OpenFour module orchestration.
+5. **What does OpenFour do?** Deploy module/token instances, trade and fee orchestration, vault custody, discovery and migration coordination.
+6. **Reused modules?** StandardVault and SimpleTradeModule from the developer-owned OpenFour fork; Core/Registry remain Four.Meme's.
+7. **New modules?** Token implementation, schema-aware ExpansionTokenModule, curve, migration and validator; bridge, factory, registry and verifier are outside OpenFour module orchestration.
 8. **Why new?** Token must prevent initial unbacked mint; price and migration fallbacks supply publicly testable behavior absent unpublished standard source; validator checks composition.
 9. **How does SPL become BNB?** Solana Adapter locks existing SPL, verified packet causes bridge-only mint of the OpenFour representation.
 10. **Who mints?** Only the destination's dedicated OFT adapter.
@@ -22,7 +22,7 @@
 20. **Graduation trigger?** Sale remainder <=1e18, matching the reference StandardVault sold-out convention, and exact reserve consistency.
 21. **LP creation?** Approved V2 adapter pairs actual WBNB with bounded token inventory; Core owns orchestration.
 22. **Unused tokens?** Return to fixed beneficiary atomically during successful migration; normal OFT burn/unlock can return them to source afterward.
-23. **Failed migration?** Entire transaction reverts, flags and balances roll back, retry is possible. Pre-existing V2 pair can permanently block this fallback without a reviewed replacement strategy.
+23. **Failed migration?** Entire transaction reverts, flags and balances roll back, retry is possible. Empty pre-created pairs are accepted. Pair preparation before funding prevents token seeding; quote-only donations accrue to LP.
 24. **Failed LayerZero delivery?** Retry same verified packet; no second deposit or manual mint. Source remains locked until valid delivery/recovery.
 25. **Bad/stale price?** Wrong signature/domain/price/eligibility or time window fails activation. A compromised valid signer can still misprice; no decentralized oracle claim.
 26. **Admin powers?** Admission of new source mappings, OApp security config/pause, source program/config governance, existing Core custody powers; no new owner quote withdrawal or mint grant.
@@ -30,4 +30,4 @@
 28. **What maintain afterward?** Existing platform operations, UI fields and module integration; source custody/bridge/oracle operations remain ours.
 29. **What tests?** Real EVM compilation/execution, bootstrap/phase/replay/permission/price tests, integer sweep, migration rollback/retry, SDK instruction construction and modeled cross-chain accounting. See coverage gaps.
 30. **Reproduce locally?** README commands install locked dependencies, compile and run all reference tests; deployment local command runs through graduation.
-31. **Other chains?** Preserve OFT backing and swap source verification/launch adapter, verify endpoint support and security config for each chain. No current support claim for any untested destination.
+31. **Other chains?** BNB is the only launch destination. Solana supplies the backing. Other destinations and source EIDs are rejected by this version.

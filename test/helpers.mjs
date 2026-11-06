@@ -62,7 +62,7 @@ export async function fixture() {
     sources.target,
   ]);
   const tokenImpl = await deploy("ExpansionToken", signer, [factory.target, attestor.target]);
-  const tm = await deploy("StandardTokenModule", signer),
+  const tm = await deploy("ExpansionTokenModule", signer),
     vi = await deploy("StandardVault", signer),
     ci = await deploy("ExpansionCurveModule", signer),
     ti = await deploy("MockSimpleTradeModule", signer),
