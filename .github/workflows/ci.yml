@@ -1,4 +1,4 @@
-name: reference-tests
+name: bnb-openfour-tests
 on: [push, pull_request]
 jobs:
   test:
@@ -11,6 +11,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm run verify:upstream
       - run: npm test
       - run: npm ci --prefix solana --legacy-peer-deps
       - run: npm test --prefix solana

@@ -1,39 +1,39 @@
-# Executed test report
+# Executed tests — BNB OpenFour 0.2.0
 
-## 2026-09-21 pool token tax update
+Run date: 2026-11-06 UTC (November 5 US Eastern). Windows, Node 22.14.0, Hardhat 2.29.1, solc 0.8.24, optimizer 200, viaIR, Shanghai EVM.
 
-Recompiled all 75 Solidity source units; ExpansionToken runtime is 10,780 bytes, below EIP-170. The full EVM/economics regression suite passed **14 tests, 0 failures, 0 skipped** in 61.1 seconds. Formatting and the 38-file upstream integrity check passed. Updated execution evidence is in reports/evm-test.log and reports/build-report.json.
-
-The added deployed-Solidity test covers the 15-bps constant and exact recipient; buy/sell pool transfer legs; gross transferFrom allowance; exact token balance deltas; rounding at 666/667 base units; zero transfers; failed-transfer atomic rollback; unauthorized pool registration; supply conservation; and untaxed wallet transfers. Existing migration and OFT tests now also assert no protocol tax during migration or bridge mint/burn. The router/pair remain test doubles, so this does not establish real AMM or fee-on-transfer router compatibility. See [POOL_TAX.md](POOL_TAX.md). Solana code was unchanged; its previous results below were not rerun for this update. GitHub CI for this update is separate from this local test evidence.
-
-## Original baseline
-
-Run date: 2026-09-20 UTC (September 19 US Eastern). Environment: Windows, Node 22.14.0, npm 10.9.2, solc-js `0.8.30+commit.73712a01.Emscripten.clang`, Ganache 7.9.2, Shanghai EVM, optimizer 200/viaIR.
-
-| Check | Observed result |
+| Check | Result |
 |---|---|
-| Compile actual owned code and upstream dependency closure | PASS; 75 Solidity source units, all new runtimes below 24,576 bytes |
-| EVM / economics suite | PASS: 13 tests, 0 failed, 0 skipped; ~50.2 seconds |
-| Solana SDK/policy suite | PASS: 2 tests, 0 failed, 0 skipped |
-| Integer economic grid | 2,304 parameter combinations; 1,152 admitted and 1,152 rejected; 114,614 modeled trade transitions |
-| Deployed Solidity randomized curve test | 48 seeded buy/sell operations plus exact reserve, reverse-quote and round-trip assertions |
-| Cross-chain supply model | 12 post-graduation lock/mint/burn/unlock cycles with explicit pending claims; modeled source, actual EVM OFT logic |
-| Ephemeral local demo | PASS: bootstrap → activate → trade → migration → publicMode=true |
-| Format check | PASS |
-| Vendored source integrity | PASS: 38 unchanged OpenFour Solidity files checked against manifest |
-| Fresh root dependency install | PASS: npm ci in empty reproduction directory, 410 packages |
-| Fresh Solana dependency install | PASS: npm ci in empty reproduction directory, 423 packages |
+| Clean locked root install | PASS: 623 packages; npm ci --ignore-scripts |
+| Compile | PASS: 82 artifact source units; owned runtime sizes below EIP-170 |
+| Existing EVM/economics regressions | PASS: 14 tests, zero failures/skips |
+| New Hardhat integration boundaries | PASS: 5 tests |
+| Solana SDK/policy suite | PASS: 2 tests after clean locked install |
+| Actual OpenFour/Pancake local fork | PASS: 20 checks, source BNB testnet block 141062182 |
+| Formatting | PASS |
+| Upstream integrity | PASS: 39 source files at 6f7efd5d3f14ed280cf471f70675ffba6d319943 |
+| Owned-file whitespace/diff check | PASS; unchanged upstream whitespace preserved |
 
-The clean-install test found Ganache's bundled macOS-only `fsevents` entry incorrectly marked as non-optional. Its lockfile entry is marked optional, preserving the published version/integrity hash. Both clean installs then succeeded. Re-resolving dependencies with npm install may recreate the upstream packaging issue; use the supplied locks and npm ci.
+Evidence: [build settings and sizes](reports/build-report.json), [EVM/Hardhat output](reports/evm-test.log), [Solana output](reports/solana-sdk-test.log), [economic grid](reports/economics.json), and [fork assertions/addresses/transactions](reports/openfour-fork.json).
 
-The first EVM test run caught a missing boolean return in the token's LayerZero mint/burn interface. The token now explicitly inherits IMintableBurnable, the ABI was corrected, and all affected tests were rerun. Initial simulation-test count thresholds were corrected by expanding the grid, not by claiming unexecuted cases. Final evidence logs are under reports/.
+The clean install reproduced Ganache's bundled Darwin-only fsevents metadata problem. That lock entry is marked optional, preserving version/integrity. Windows native uWS/Solana bigint bindings fall back to JavaScript; tests execute successfully. No blanket dependency audit fix or major upgrade was applied.
 
-## What these results establish
+## Actual integration evidence
 
-Public OpenFour interface compilation; clone initialization through the reference lifecycle; no initial mint; source admission and caller checks; bootstrap cap/recipient/depositor/domain/replay constraints; signature/price/age/cap/time validation; receipt-free transfers and resale; bounded real quote; source-closed bridge phases; migration rollback/retry/one-time completion; LP recipient checks against a router double; inherited OFT burn/dust semantics; source SDK atomic instruction ordering and unsupported-asset rejection.
+The local fork uses the published Registry, Core, CreateDeployer, FeeRouter, Tools, StandardVault and SimpleTradeModule implementations through new developer-owned proxies. It verifies ownership/signer, registers the custom composition, discovers schemas, signs the current partner-bearing tuple, and creates a zero-supply market.
 
-## What was not executed
+After fixture bootstrap and a signed activation, real Core buys/sells preserve the exact reserve invariant. An empty Pancake pair pre-created before the launch is reused; pre-graduation token deposits fail. A synced quote-only donation is accepted at graduation. Actual pair reserves, LP burn recipient, emptied vault and one-time migration are verified. Current Core treats a repeat migration call as a no-op; the test checks no second migration event or balance change rather than expecting a revert.
 
-Actual OpenFour production Core/Registry; real PancakeSwap router/factory fork; real EndpointV2 verification/DVN delivery; Solana BPF build or SVM tests; funded devnet/BSC testnet transactions; source-price collection service; adversarial callback/fee-on-transfer campaign; independent security audit; hosted GitHub CI. Source backing assertions in the local cross-chain test use an explicitly modeled ledger, not fabricated Solana chain data. The supplied CI workflow has not run on GitHub.
+The real Pancake fee-on-transfer router executes both post-migration buy and sell paths; tax reaches the fixed recipient. The five new Hardhat tests cover schema ABI order, source EID restriction, locked implementation initializers, unrelated-chain rejection, and creation signature/domain/outer-flag constraints.
 
-Local test success is not an audit or proof of live compatibility. See THREAT_MODEL.md for the per-failure evidence table and FOURMEME_REVIEW_CHECKLIST.md for release gates.
+## Regression coverage
+
+Existing tests exercise exact bootstrap identity/amount/replay restrictions, unauthorized issuance, stale or invalid attestations, reserve/reverse-quote consistency, seeded Solidity trade sequences, migration rollback/retry, pool-transfer tax rounding/atomicity, OFT dust/burn/pause semantics and modeled cross-chain supply. The finite economic grid covers 2,304 parameter combinations and 114,614 modeled transitions. Solana tests exercise SDK encoding/policy and atomic instruction ordering, not source-chain execution.
+
+## Limits
+
+LayerZero delivery in the fork is mocked; source admission is a fixture. No Solana BPF execution, live escrow/TVL validation, real DVN delivery, funded public deployment or official Registry registration was performed. Additional liquidity-operation/callback checks, creation-signing policy, recovery design and independent security audit remain release gates. All fork addresses and transaction hashes are localhost evidence.
+
+The older local-demo log is historical baseline evidence. GitHub CI results are recorded on the associated change; this report describes the local run and does not substitute for hosted CI.
+
+Reproduce with the [README commands](../README.md). See [defensive review](SECURITY_REVIEW.md) and [release checklist](FOURMEME_REVIEW_CHECKLIST.md).

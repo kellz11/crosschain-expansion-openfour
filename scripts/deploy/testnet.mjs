@@ -48,6 +48,7 @@ const oracle = await deploy("EligibilityPriceAttestor", [
   600,
 ]);
 await deploy("ExpansionToken", [factory.target, oracle.target]);
+await deploy("ExpansionTokenModule");
 const adapter = await deploy("PancakeV2ExpansionAdapter", [c.pcsRouter]);
 await deploy("ExpansionCurveModule");
 await deploy("ExpansionMigrateModule");

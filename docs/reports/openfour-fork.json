@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "generatedAt": "2026-11-06T01:38:01.699Z",
+  "sourceChainId": 97,
+  "forkBlock": 141062182,
+  "chainId": 31337,
+  "rpcUrl": "http://127.0.0.1:18545",
+  "openfourCommit": "6f7efd5d3f14ed280cf471f70675ffba6d319943",
+  "scope": "Real OpenFour and Pancake implementations; local BNB testnet fork; mocked LayerZero delivery and source admission",
+  "limitations": [
+    "No live Solana escrow/BPF execution or LayerZero DVN delivery",
+    "No public testnet/mainnet deployment or official Registry writes",
+    "No independent security audit"
+  ],
+  "implementations": {
+    "registry": "0x4539839A0DC318E6dcFb43AaaEEfc391C85f4071",
+    "feeRouter": "0xdFD0946F09c1d262A123345B82a2439797AB9459",
+    "core": "0xEDF713d363b481cFB1824De1312c88D0bA541033",
+    "createDeployer": "0x52CF037688250c9da64DdCa84895B864C7D8F694",
+    "tools": "0x616d05Bd917ca68cb90117E7C7594ee5456520b9"
+  },
+  "addresses": {
+    "registry": "0xaBdEE25230e506cD3527dfb905be17c5E2b07804",
+    "feeRouter": "0x643E07b0D0717aEe019067B5f5f470b310fBa64B",
+    "core": "0x24E5b7179bacE54BF83E5Bc9798A7666220165C2",
+    "createDeployer": "0x6F5A9B2393e4D5218B9C5992e39cD18C196109D4",
+    "tools": "0x7575b15714b41a45074Fa781FfAa6d4541C9f3bc",
+    "wbnb": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+    "tokenImpl": "0x776acaa09ca88670bdb149162181f5e85652c844",
+    "validator": "0x17118b096a340e6f4a465ebb1bb6e21a60cdec1d",
+    "token": "0x5bFB21fdC6e6ba68Ad9769acACB656C6319fF13A",
+    "vault": "0x6aEa0ca557aC94A9eD2BBF5a572340016F118554",
+    "curve": "0x12Bb3a1E94B6DD408bEe42FaA03736df764cDb6A",
+    "migrate": "0x803D436F30ef1f7FfC9c964ece6C8741B2Ae9c81",
+    "pool": "0x8284e4D18d16cED195D9F45ae359f37cff55eBbF",
+    "adapter": "0x53089bFB0C7Ca6972fDfB29e76165041067D33b9",
+    "tokenModuleImpl": "0x44af9158906617457424f34152e32d2fa5fb2db2",
+    "curveImpl": "0xd25293b2d90be2068230740592c4d7b6bd0c4ba0",
+    "migrateImpl": "0x81cc21c164e982179ab1b80b4444a18c40e3e299",
+    "bridgeFactory": "0x21c8c6018904a63fbdd1bfacfc9d8859cc7db8fc",
+    "attestor": "0x22447a0424677132516f3d90948d729858e8bb53",
+    "sourceRegistry": "0x9d696b0abe7273509d4ebcb7faab3c1c45efef1d",
+    "mockEndpoint": "0x0e7915b2a61cfdf34f42aa64e346f61d4998bbae"
+  },
+  "checks": [
+    "Developer owns the fork Registry and Core signer",
+    "Registry differs from the public hub",
+    "Pancake testnet router code exists",
+    "Tools exposes six bootstrap fields and two curve/migration fields",
+    "Real Core accepts zero initial supply",
+    "Real CreateDeployer initializes and binds custom modules",
+    "Creation reuses an empty pre-created pair",
+    "Pancake pool is registered before funding",
+    "Unfunded trading rejected",
+    "Exact committed inventory funds real vault",
+    "Real Core buy books only curve reserve",
+    "Pre-graduation pool token deposit rejected",
+    "Real vault sell settlement preserves reserve invariant",
+    "Real Core completes migration once",
+    "Real Pancake reserves equal migration plus donation",
+    "LP minted to immutable recipient",
+    "Vault inventory and accounted quote drained",
+    "Repeated Core migrate performs no second migration",
+    "Real Pancake buy collects 0.15% pool transfer tax",
+    "Real Pancake sell collects exact 0.15% token tax"
+  ],
+  "transactions": [
+    {
+      "label": "deploy MockEndpoint",
+      "hash": "0x69701f3120123be886183f66fe9f23882937feae9df0161b3cf02cc6c748b11f"
+    },
+    {
+      "label": "deploy SourceRegistry",
+      "hash": "0x3a4e52b2c115065e7daed88b2d33a7ede36cdbb579c2ba777839db8e7f0cd39f"
+    },
+    {
+      "label": "deploy ExpansionBridgeFactory",
+      "hash": "0xaf95f04d18b01dcaab68d54d2135e8510a3de11befc762faf0079c58c6c57c67"
+    },
+    {
+      "label": "deploy EligibilityPriceAttestor",
+      "hash": "0xad300383c59581971f392b4d57d27ba9251418eecbad98dac62f81893824a4bd"
+    },
+    {
+      "label": "deploy ExpansionToken",
+      "hash": "0xd7a9e3d4634bcc8aa008cbd5a580d80adbbcc68885fb8854bd99fb5bebe7b82f"
+    },
+    {
+      "label": "deploy ExpansionTokenModule",
+      "hash": "0xc6726f00bb535e8118d37ce5d24e59db8c7aa5d97e244279cbbde535e42062fa"
+    },
+    {
+      "label": "deploy ExpansionCurveModule",
+      "hash": "0xda611aa2946adc2e91eabadbc2a4619e3efe3e7bf100114a0c2eb2a9c94dc50e"
+    },
+    {
+      "label": "deploy ExpansionMigrateModule",
+      "hash": "0x16d045ebca454dd98d3f735520b40333118b34de8e3edb3b601a3ce908935067"
+    },
+    {
+      "label": "deploy PancakeV2ExpansionAdapter",
+      "hash": "0x2684d69e96d2538245d2767aca09a875737d37f4b2e2e6a9f1a4c526e8dafa0e"
+    },
+    {
+      "label": "deploy ExpansionPresetValidator",
+      "hash": "0xcb0cbe4631802c59587f0bd2c0e4e253b04133e8fd6a2a4b248633c5c22c89c7"
+    },
+    {
+      "label": "register token implementation",
+      "hash": "0xca6c6b46f33215ec842086a1503544fd6d9ff8dfcd87b17e5245d005203c6850"
+    },
+    {
+      "label": "register token",
+      "hash": "0x6e5d59c40ed3a5e08944249a81ac43b206246e6943e10a1f5ba7de38bec2a12b"
+    },
+    {
+      "label": "register curve",
+      "hash": "0x1d5ba5fa281907c5bc78aab554c56bd0e764550f30b1a7694019452bf17f28d0"
+    },
+    {
+      "label": "register migrate",
+      "hash": "0x2e3ad8fa7c6f4dbeb690e89c6c6af4e611c91d74c4eae928cc9c4dcb2904577a"
+    },
+    {
+      "label": "register preset",
+      "hash": "0xe21b17f901ccdcde169ef5acf52efa7e086be0548ff8c263aac5043de805f76c"
+    },
+    {
+      "label": "fixture source admission",
+      "hash": "0x6efc7f03eec1faa32b982ca4bf74a178e3c5611975beec68efe23579c93277fa"
+    },
+    {
+      "label": "pre-create empty Pancake pair",
+      "hash": "0xdf6f28e8638f38c82728c7a90bf7c4eac163658d010c9d0a3f3cc0a59a0e48f4"
+    },
+    {
+      "label": "create token",
+      "hash": "0x30a933289b20112c41551d4af87f9205f0e5bce12a746244af5362a532c1fd7e"
+    },
+    {
+      "label": "fixture bootstrap delivery",
+      "hash": "0x2ba63ffe82af5fb2036b26c420b552039d415def1a406ad157aa82aca295da94"
+    },
+    {
+      "label": "activate",
+      "hash": "0x72887d8bfa8a73bd548b477da3c4871b24382780ec9e8d9b14133950bc80bd9c"
+    },
+    {
+      "label": "Core buy",
+      "hash": "0x6094a62662d8735662f4fefb3b9849273b301f42d006b9a57e6ed74fbb2088ad"
+    },
+    {
+      "label": "approve sell",
+      "hash": "0x6cca06a35442a6c73e08d7200c6fdcb212195dff995d3e026b517752bd4fb9b4"
+    },
+    {
+      "label": "Core sell",
+      "hash": "0x1dc9e8631cae880635cd0cf93214dc8e4fb37196814bd5b23b4c4e7c6148cb7f"
+    },
+    {
+      "label": "wrap donation",
+      "hash": "0x94b6e74b95fe275cbdac6c56987ba736e7b7e0fa0f9f5de608dabfe8c6dcb940"
+    },
+    {
+      "label": "quote-only donation",
+      "hash": "0xef7709c6a46727e8b0ead2e56884e6db20c055a8e42bcaaa0449d64fae3d869b"
+    },
+    {
+      "label": "sync donation",
+      "hash": "0x268c010c7d6150317ca944e4adfa5ac3ef7fd553ff7a96498f39ca3358d1522b"
+    },
+    {
+      "label": "Core buy",
+      "hash": "0xb38f783e44351efa929cead9ae418b1ef4826db34daae0f72005c9f386b1b0ba"
+    },
+    {
+      "label": "repeat Core migrate",
+      "hash": "0x892bcf3c88f5b78f5ff6a6f33f33291102c6ebceada2065751449d9d880e0acb"
+    },
+    {
+      "label": "Pancake taxed buy",
+      "hash": "0x0197239386df40194e97b773f5b5be77a6d752e5b196351b2fd5192f5382f760"
+    },
+    {
+      "label": "approve Pancake sell",
+      "hash": "0x384a688374f2bd54a801f4441f8aaa3a658651bf18823683f676bc5d5a3a4b26"
+    },
+    {
+      "label": "Pancake taxed sell",
+      "hash": "0x9aa3cc51e22e8e429b2c434aab30d01331d37c62e6d4bcc004309015762b01e7"
+    }
+  ]
+}

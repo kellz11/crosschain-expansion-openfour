@@ -1,0 +1,20 @@
+{
+  "name": "BNBExpansion",
+  "version": "0.2.0",
+  "purpose": "Launch Solana-backed inventory through OpenFour on BNB and graduate real WBNB/token reserves to PancakeSwap V2.",
+  "destinationChainIds": [56, 97],
+  "developmentChainIds": [97, 31337],
+  "sourceEids": {"56": 30168, "97": 40168, "31337": 40168},
+  "tokenImplKey": "token.bnb_expansion_v2",
+  "tokenModuleKey": "module.token.bnb_expansion_v2",
+  "vaultModuleKey": "VAULT_BASIC",
+  "curveModuleKey": "module.curve.bnb_expansion_v2",
+  "tradeModuleKey": "TRADE_SIMPLE",
+  "migrateModuleKey": "module.migrate.bnb_expansion_v2",
+  "customDataId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "createPolicy": {"presaleQuote": "0", "antiSniperEnabled": false},
+  "publicDeployment": null,
+  "officialPresetId": null,
+  "forkFixturePresetId": "2026110502",
+  "forkEvidence": "../../../docs/reports/openfour-fork.json"
+}

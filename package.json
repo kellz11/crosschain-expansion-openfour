@@ -1,6 +1,6 @@
 {
-  "name": "crosschain-expansion-reference",
-  "version": "0.1.0",
+  "name": "bnb-openfour-expansion",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,12 +8,15 @@
   },
   "scripts": {
     "compile": "node scripts/compile.mjs",
-    "test": "npm run compile && node --test --test-concurrency=1 test/*.test.mjs",
+    "test": "npm run compile && node --test --test-concurrency=1 test/*.test.mjs && npm run test:hardhat",
     "simulate": "node scripts/simulate/economics.mjs",
-    "lint": "prettier --check contracts scripts test package.json",
-    "format": "prettier --write contracts scripts test package.json",
+    "lint": "prettier --check developer/startup/contracts developer/startup/scripts developer/startup/test developer/startup/hardhat.config.cjs scripts test package.json",
+    "format": "prettier --write developer/startup/contracts developer/startup/scripts developer/startup/test developer/startup/hardhat.config.cjs scripts test package.json",
+    "verify:upstream": "node scripts/verify-upstream.mjs",
     "deploy:local": "node scripts/deploy/local.mjs",
-    "deploy:testnet": "node scripts/deploy/testnet.mjs"
+    "deploy:testnet": "node scripts/deploy/testnet.mjs",
+    "test:hardhat": "node scripts/hardhat-run.mjs test",
+    "test:fork": "node scripts/openfour/run-fork.mjs"
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.9.6",
@@ -26,9 +29,14 @@
     "ethers": "6.17.0"
   },
   "devDependencies": {
-    "solc": "0.8.30",
+    "solc": "0.8.24",
     "ganache": "7.9.2",
     "prettier": "3.6.2",
-    "prettier-plugin-solidity": "2.1.0"
+    "prettier-plugin-solidity": "2.1.0",
+    "hardhat": "2.29.1",
+    "@nomicfoundation/hardhat-ethers": "3.1.3",
+    "@nomicfoundation/hardhat-chai-matchers": "2.1.2",
+    "chai": "4.5.0",
+    "dotenv": "17.4.1"
   }
 }

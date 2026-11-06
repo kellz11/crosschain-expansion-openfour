@@ -28,8 +28,8 @@ Assets: canonical source escrow/TVL, backed destination supply, accumulated user
 | DVN/configuration compromise | Explicit per-direction ULN/confirmations, immutable peer, monitored configuration | **Residual trust**: compromised verification can fabricate accepted messages; no local test proves otherwise |
 | Source emergency | Pause new debit/credit; preserve escrow/TVL; retry verified messages | Operational drill on devnet pending; do not unlock collateral manually |
 | Destination emergency | Pause adapter; use Core pause if needed; keep supply/backing unchanged | Local bridge pause tested; platform-specific Core pause path unverified |
-| Front-run V2 pair creation | Fresh-pair-only adapter refuses pre-existing pools | Safe denial of migration possible; production must resolve with Four.Meme approved migration strategy |
-| Initialization front-running | Clone+initialize atomically through Core; implementation initializers disabled | Local clone path executed; production deployer ordering is an explicit gate |
+| Pre-created V2 pair / quote donation | Prepare and register empty pair before supply; prohibit pre-graduation token deposits; accept quote donations | Real Pancake fork covers empty pre-creation and synced quote donation; opening ratio may increase |
+| Initialization | Atomic Core/CreateDeployer creation, token binding checks, disabled implementation initializers | Real developer-owned Core fork creation plus unit tests; Registry beacon upgrades remain trusted |
 
 ## Formal statements
 
@@ -41,4 +41,4 @@ The economics sweep is a deterministic finite test grid, not a formal proof over
 
 ## Outstanding attacks to execute before production
 
-Real Solana Adapter CPI rollback/escrow/TVL tests; real EndpointV2 payload verification and retry; actual PCS V2 factory/router fork tests including pool front-running and minimum liquidity; malicious adapter/router callbacks; fee routing and anti-sniper exclusion in real Core; configuration/DVN compromise drills; source program upgrade governance; full network end-to-end deposit through return unlock. These are explicitly not counted as passing tests.
+Real Solana Adapter CPI rollback/escrow/TVL tests; real EndpointV2 payload verification and retry; additional PCS liquidity-operation and malicious adapter/router callback tests beyond the completed creation/migration/swaps fork suite; creation signer anti-sniper exclusion policy; configuration/DVN compromise drills; source program upgrade governance; full network end-to-end deposit through return unlock. These are explicitly not counted as passing tests.

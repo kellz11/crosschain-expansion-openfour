@@ -1,21 +1,34 @@
 {
-  "compiler": "0.8.30+commit.73712a01.Emscripten.clang",
+  "compiler": "0.8.24+commit.e11b9ed9.Emscripten.clang",
+  "build": "Hardhat",
+  "sourceUnits": 82,
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "viaIR": true,
+    "evmVersion": "shanghai"
+  },
   "sizes": {
-    "ExpansionBridgeFactory": 14917,
-    "ExpansionOFTAdapter": 12481,
-    "SourceRegistry": 833,
+    "ExpansionBridgeFactory": 15667,
+    "ExpansionOFTAdapter": 12862,
+    "SourceRegistry": 955,
+    "BnbEnvironment": 57,
     "ExpansionTypes": 57,
-    "MockCore": 7756,
-    "MockEndpoint": 2157,
-    "MockPair": 2594,
-    "MockQuote": 2387,
-    "MockV2Router": 4529,
-    "MockSimpleTradeModule": 1896,
-    "ExpansionCurveModule": 6406,
-    "ExpansionMigrateModule": 8288,
-    "PancakeV2ExpansionAdapter": 3487,
-    "EligibilityPriceAttestor": 3721,
-    "ExpansionToken": 10780,
-    "ExpansionPresetValidator": 2549
+    "InitializationAuth": 57,
+    "MockCore": 7785,
+    "MockEndpoint": 2210,
+    "MockPair": 3859,
+    "MockQuote": 2394,
+    "MockV2Router": 5512,
+    "MockSimpleTradeModule": 1911,
+    "ExpansionCurveModule": 6939,
+    "ExpansionMigrateModule": 8895,
+    "ExpansionTokenModule": 5356,
+    "PancakeV2ExpansionAdapter": 6412,
+    "EligibilityPriceAttestor": 3759,
+    "ExpansionToken": 10809,
+    "ExpansionPresetValidator": 2810
   }
 }

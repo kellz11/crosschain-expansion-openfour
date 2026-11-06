@@ -3,7 +3,9 @@ New reference code and authored documentation are MIT licensed.
 Vendored OpenFour Solidity retains its SPDX MIT notices and is an unchanged
 reference snapshot, not audited production Four.Meme source. Upstream:
 https://github.com/four-meme-community/openfour-docs
-Commit: 0527d529d59c6a3fbc9927ce391ecc97c66e1b01
+Commit: 6f7efd5d3f14ed280cf471f70675ffba6d319943
+The developer/fork-deploy toolkit comes from the same snapshot. Local changes
+restrict network writes and use managed transaction nonces; see its README.
 
 LayerZero and other dependencies retain their own licenses. In particular the
 pinned Solana OFT SDK package declares BUSL-1.1. The root MIT license does not

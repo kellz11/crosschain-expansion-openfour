@@ -9,7 +9,7 @@ flowchart LR
     T --> V[StandardVault inventory]
     U[BNB buyer] --> C[OpenFour Core and standard trading]
     C --> V
-    C --> Q[Expansion curve fallback]
+    C --> Q[Expansion curve]
     V --> M[OpenFour migration module boundary]
     M --> D[PancakeSwap V2]
     M --> R[Unused token inventory to fixed beneficiary]
@@ -28,4 +28,4 @@ flowchart LR
 
 Four.Meme can build the bridge itself, but then takes on source-chain custody, RPC/indexing, mint compatibility, LayerZero configuration, signer operations, incident response and continuous supply reconciliation. This protocol packages those obligations behind token, pricing and migration interfaces it can review. The differentiation is operational responsibility and reusable source adapters, not an artificial exclusive token standard.
 
-The reference does not change Core or add a competing trading UI. It creates only the missing backed-token behavior and conservative public-interface fallbacks. Other destinations can reuse the canonical OFT/source operations with different launch adapters. New source chains must preserve normalized backing and packet authentication, not just reuse a ticker.
+The reference does not change Core or add a competing trading UI. It creates only the missing backed-token behavior and conservative public-interface fallbacks. BNB is the only launch destination in this implementation. The source remains Solana; no alternative destination or source chain is enabled.

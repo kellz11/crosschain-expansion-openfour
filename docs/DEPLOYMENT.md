@@ -13,11 +13,17 @@ npm test --prefix solana
 npm run deploy:local
 ```
 
-Compilation uses locked solc-js 0.8.30, optimizer 200, viaIR, Shanghai target; no compiler download occurs during build. `artifacts/build-report.json` reports source count and EIP-170 runtime size checks. OpenFour public interfaces, OpenFourToken, StandardTokenModule and StandardVault compile from unchanged vendored source. Test doubles exist only under contracts/mocks and are visibly named. Local tests use real LayerZero OFT contract logic but mocked endpoint transport and PCS router. They do **not** execute Solana BPF or real DVN verification.
+Compilation uses Hardhat with locked solc-js 0.8.24, optimizer 200, viaIR, Shanghai target; no compiler download occurs during build. `artifacts/build-report.json` reports source count and EIP-170 runtime size checks. OpenFour public interfaces, OpenFourToken, StandardTokenModule and StandardVault compile from unchanged vendored source. Test doubles exist only under developer/startup/contracts/mocks and are visibly named. Local tests use real LayerZero OFT contract logic but mocked endpoint transport and PCS router. They do **not** execute Solana BPF or real DVN verification.
 
 The npm legacy-peer-deps setting is intentional: LayerZero's broad message-library peer graph includes unrelated ethers-v5 tooling, while this harness uses ethers v6. Every installed package is resolved in package-lock; the Solidity dependency closure compiles. Solana's transitive aptos-client peer `got` is explicitly pinned to 11.8.6. Native optional Ganache/uWS and Solana bigint bindings fall back to JavaScript on this Windows/Node build; tests still execute. CI is supplied but no hosted GitHub run is claimed.
 
 Ganache's bundled Darwin-only fsevents lock entry is explicitly marked optional to make npm ci portable; its version and integrity hash are unchanged. Clean root and Solana installs were both executed from empty reproduction directories. Run `node scripts/verify-upstream.mjs` to check the vendored source manifest.
+
+## Actual OpenFour/Pancake fork
+
+Run `npm run test:fork` after compilation. It starts a local Hardhat BNB-testnet fork, deploys owned OpenFour proxies using the published implementations, registers the BNB preset, discovers schemas and verifies the lifecycle against actual Core/Vault/Trade/Pancake code. RPC calls to the public chain are read-only. Test writes require localhost chain 31337. Local addresses and transaction hashes in `docs/reports/openfour-fork.json` are evidence, not public deployments. LayerZero delivery and source admission remain fixtures.
+
+The runner uses a loopback read-only RPC proxy for portable HTTPS support and mines a local block before calling inherited state. Shanghai is the test execution target; this is not a full simulation of every BNB consensus/hardfork feature. The ephemeral signer is never saved. The fork is stopped after the test.
 
 ## BSC testnet
 
@@ -30,7 +36,7 @@ npm run compile
 node scripts/deploy/testnet.mjs deployments/example/testnet.json
 ```
 
-This deploys our implementation contracts, source registry and validator, writes addresses/transaction hashes incrementally, and does not deploy or register a fake production Core. Four.Meme assigns the actual preset ID and standard module versions. If they provide no OpenFour test instance, use MockCore on a private test network explicitly labelled as a harness; it is not a Four.Meme deployment. Public testnet integration needs their creation/API authorization and registry configuration.
+This deploys our implementation contracts, source registry and validator, writes addresses/transaction hashes incrementally, and does not deploy or register a fake production Core. Four.Meme assigns the actual preset ID and standard module versions. Use `npm run test:fork` for a developer-owned localhost proxy set pointing to the published BNB testnet implementations. The copied fork toolkit rejects networks other than 97/31337. Public testnet deployment requires a funded test signer and reviewed source/bridge configuration. Official Registry registration remains a separate release step.
 
 ## Solana devnet
 
@@ -48,7 +54,7 @@ Use the upstream `lz:oft-adapter:solana:create` task with the existing mint, and
 2. Set source paused. Configure verified peer/DVN/ULN/executor in each direction. Simulate both message paths.
 3. Build bootstrap with the pinned SDK: simulate unpause+quote, then simulate the **entire** unpause+send+pause transaction with all signers and lookup tables. Confirm actual mint, escrow, destination vault/adapter, source depositor and deposit ID match signed project settings.
 4. Send exact inventory. Record source signature, packet GUID and normalized escrow increase; deliver packet and compare minted amount/vault balance. Verify public sends fail.
-5. Collect current source observations. Sign/activate at the fixed opening price. If current valuation no longer matches, do not activate using stale data. v0.1 has no repricing/cancellation recovery; address this product limitation before accepting deposits at scale.
+5. Collect current source observations. Sign/activate at the fixed opening price. If current valuation no longer matches, do not activate using stale data. v0.2 has no repricing/cancellation recovery; address this product limitation before accepting deposits at scale.
 6. Buy and sell through OpenFour; record net actual WBNB, fees and remaining inventory. Reach sold-out threshold, test migration failure/retry, inspect actual pool reserves and LP recipient, and confirm surplus token beneficiary.
 7. Verify destination publicMode, wait finality, unpause source. Test source→BNB and BNB burn→source release. Reconcile total supply, TVL and all in-flight amounts. Test pause/retry without double credit.
 

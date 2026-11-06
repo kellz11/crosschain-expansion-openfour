@@ -1,0 +1,9 @@
+{
+  "name": "bnb-openfour-expansion-startup",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test"
+  }
+}

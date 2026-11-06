@@ -1,41 +1,36 @@
-# Cross-Chain Expansion Protocol — OpenFour reference
+# BNB OpenFour Expansion
 
-Existing Solana token inventory becomes a backed BNB representation, launches through OpenFour, accumulates real user-funded WBNB, and migrates to PancakeSwap before public OFT bridging opens. **We own cross-chain expansion. Four.Meme remains the launch environment.**
+Existing Solana inventory backs a token launched through OpenFour on **BNB Chain only**. Buyers fund the WBNB reserve; graduation seeds PancakeSwap V2, returns unused inventory to the fixed beneficiary, and enables public OFT bridging. Solana remains the source of backing, not another launch destination.
 
-This is a compiling reference for engineering review, not an audited release or completed live integration. No production/testnet addresses were fabricated and no external deployment was made. The actual OpenFour public interfaces are vendored unchanged at commit `0527d529d59c6a3fbc9927ce391ecc97c66e1b01`. LayerZero OFT 4.0.1 is pinned. See [research](docs/RESEARCH.md) for source provenance.
+Version 0.2.0 integrates OpenFour docs commit `6f7efd5d3f14ed280cf471f70675ffba6d319943`. It uses Hardhat, solc 0.8.24, optimizer 200 and viaIR. Custom modules live in `developer/startup/contracts`; unchanged public interfaces and examples are hash-locked under `developer/startup/vendor/openfour`.
 
 ## Run
-
-**Pool token tax:** after graduation, registered pool transfers pay 0.15% to `0x2b057980e924B2aA8f6B80Bb5c8A669EE3753dc1`, in the expansion token. This is additional to DEX fees and also affects later liquidity additions/removals. Wallet transfers, initial migration and bridge mint/burn remain untaxed. See [tax policy and integration limits](docs/POOL_TAX.md).
 
 ```sh
 npm ci
 npm test
 npm run lint
+node scripts/verify-upstream.mjs
 npm ci --prefix solana --legacy-peer-deps
 npm test --prefix solana
-npm run deploy:local
+npm run test:fork
 ```
 
-Node 22.14.0 recommended. No Foundry installation is required; solc-js compiles the actual Solidity and Ganache executes it. `npm run simulate` reproduces the economic parameter sweep. `npm run format` formats owned Solidity/JS. [Deployment instructions](docs/DEPLOYMENT.md) cover BSC testnet, Solana devnet, source bootstrap and remaining live acceptance tests.
-
-## Review order
-
-1. [Research and pinned source findings](docs/RESEARCH.md).
-2. [Compatibility matrix and submission schemas](docs/OPENFOUR_INTEGRATION.md).
-3. [Architecture decision record](docs/ADR-001.md).
-4. [Technical specification](docs/TECHNICAL_SPEC.md), [responsibilities](docs/ARCHITECTURE.md), [LayerZero flow](docs/LAYERZERO_INTEGRATION.md).
-5. [Threat model and coverage gaps](docs/THREAT_MODEL.md), [security policy](docs/SECURITY.md), [test report](docs/TEST_REPORT.md).
-6. [What Four.Meme actually has to do](docs/FOURMEME_REVIEW_CHECKLIST.md).
-
-The [engineer FAQ](docs/ENGINEER_FAQ.md) answers all 31 requested integration questions. The executed suite includes 14 EVM/economic tests and 2 Solana SDK tests; live network and production-Core validation remain pending.
+Node 22.14.0 is supported. The ordinary suite is offline after installation. The fork test reads the public BNB testnet RPC, deploys developer-owned proxies **only on localhost**, registers the preset, and exercises real OpenFour/Pancake implementations. It uses an ephemeral local signer and mocked LayerZero transport. No wallet or public-chain funds are needed. Set `BSC_TESTNET_RPC_URL` or `BSC_FORK_BLOCK` to override the public source/block. See [deployment](docs/DEPLOYMENT.md) and [test evidence](docs/TEST_REPORT.md).
 
 ## Composition
 
-Reuse StandardTokenModule and StandardVault. Request standard SimpleTradeModule in production (local test double because source is not public). Extend OpenFourToken with bridge-only mint/burn and a zero initial mint. Use a per-launch MintBurnOFTAdapter, source admission registry, signed activation verifier and dedicated preset validator. Reference curve and V2 migration modules are fallbacks pending inspection of Four.Meme's unpublished bonding implementations. No new custody vault, receipt token, independent launchpad, protocol token or hard-coded source asset.
+- Reuse OpenFour Core, Registry, CreateDeployer, Tools, FeeRouter, StandardVault and SimpleTradeModule.
+- Extend OpenFourToken with zero initial mint, bridge-only issuance, signed activation and the existing 0.15% post-graduation pool transfer tax.
+- Use ExpansionTokenModule for initialization plus discoverable bootstrap fields, ExpansionCurveModule for the reserve curve, and ExpansionMigrateModule for bounded migration and inventory return.
+- Prepare and register the Pancake pair during creation, before inventory exists. An empty pre-created pair is accepted; token deposits into that pool are blocked before graduation. Quote-only donations accrue to the LP and increase the opening quote/token ratio.
 
-## Material limits
+The unchanged tax recipient is `0x2b057980e924B2aA8f6B80Bb5c8A669EE3753dc1`. Tax is paid in the expansion token and also applies to later liquidity additions/removals. See [tax policy](docs/POOL_TAX.md).
 
-OpenFour production Core/Registry and standard bonding modules are not public. Internal approval is needed for zero-supply creation with asynchronous inventory funding, exact fee/phase behavior, token schema routing and LP policy. Local endpoint/router doubles do not validate DVNs or a live PancakeSwap deployment. Solana tooling imports/tests the actual SDK but the BPF program was not built/executed here. The source price collector and signer are explicitly trusted. Source/endpoint configuration and source upgrade authority remain material bridge risks. The reference has no cancellation/repricing recovery, and its fresh-pair-only V2 fallback can be blocked by pre-creation of the pair. These are release gates, not claims of completed production support.
+## Review
 
-New code: MIT. Upstream dependency licenses and source notices remain in force; see [NOTICE](NOTICE).
+Start with [integration and parameters](docs/OPENFOUR_INTEGRATION.md), [technical specification](docs/TECHNICAL_SPEC.md), [architecture](docs/ARCHITECTURE.md), [defensive review](docs/SECURITY_REVIEW.md), and the [release checklist](docs/FOURMEME_REVIEW_CHECKLIST.md). [Source provenance](docs/RESEARCH.md) and [LayerZero operations](docs/LAYERZERO_INTEGRATION.md) describe the external dependencies.
+
+This is an unaudited development integration. Live Solana custody, LayerZero delivery, public deployment, official registration and independent audit remain release gates. Failed launches have no cancellation/repricing recovery. Core/Registry upgrades, source governance, registrar, oracle and endpoint configuration are explicit trust boundaries. See [security policy](docs/SECURITY.md). No other destination chain is supported.
+
+New code: MIT. Upstream licenses and notices remain in force; see [NOTICE](NOTICE).

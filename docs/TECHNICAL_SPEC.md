@@ -1,4 +1,4 @@
-# Cross-Chain Expansion Protocol — implementation specification v0.1.0
+# BNB OpenFour Expansion — implementation specification v0.2.0
 
 This specification is for a reference implementation, not an audited production release. The old Flap PRD is conceptual background only. There is no new launchpad, independent supply, receipt token, or project-funded BNB liquidity.
 
@@ -24,7 +24,7 @@ At net sold x, buy a tokens for `F(x+a)−F(x)`; sell a for `F(x)−F(x−a)`. R
 
 For the inherited conceptual example choose `G=.39D`, `V=3.25D`: this represents selling 60% of the old .65D allocation. The remaining `.61D` is real held inventory, not promised sale capacity. At G, F(G) ≈ .44318 P0 D, spot ≈1.29132 P0, and LP tokens ≈.3432D. Remaining ≈.2668D is returned to the fixed project beneficiary only inside successful migration. This avoids unused-inventory burns to a dead address that leave OFT accounting ambiguous. The beneficiary can bridge the surplus back after graduation using ordinary burn/unlock.
 
-At migration use actual net sold `x = G − remainingForSale`, `B = vault.totalRaised = F(x)`, and `T = floor(B × (V−x)/(B0+B))`. The public StandardVault treats remaining <=1e18 as sold out; require that threshold, `T ≤ D−x`, sufficient actual quote/token balances, fixed adapter/LP recipient and pending phase. The validator bounds V >=2G, so reserved inventory remains sufficient throughout the final dust interval; it checks endpoint solvency at G. The V2 adapter must create/seed a pristine pool, consume exact approved amounts, return a nonzero pool/LP balance, and ensure LP ownership matches policy. Existing/reserve-donated pools are rejected. Do not pay virtual BNB, assume a fee haircut is zero when it is not, or accept a zero-address migration adapter.
+At migration use actual net sold `x = G − remainingForSale`, `B = vault.totalRaised = F(x)`, and `T = floor(B × (V−x)/(B0+B))`. The public StandardVault treats remaining <=1e18 as sold out; require that threshold, `T ≤ D−x`, sufficient actual quote/token balances, fixed adapter/LP recipient and pending phase. The validator bounds V >=2G, so reserved inventory remains sufficient throughout the final dust interval; it checks endpoint solvency at G. The V2 adapter prepares an empty pair during creation, while supply is zero, and registers it before bootstrap. This blocks token transfers into that pool before migration. Empty pre-created pairs are accepted. Quote-only donations, including synced donations, accrue to the LP and increase the opening quote/token ratio above the undonated target. Migration directly funds the pair, mints LP to the fixed recipient and verifies token/quote balances, reserves and LP delta. Nonzero token reserves or LP supply are rejected. Do not pay virtual BNB, assume a fee haircut is zero when it is not, or accept a zero-address migration adapter.
 
 ## Atomic migration and public bridge
 
@@ -38,11 +38,11 @@ The EVM cannot independently read Solana custody. This invariant is conditional 
 
 ## Permission and failure policy
 
-No owner quote withdrawal exists in new protocol contracts. StandardVault trusts Core and migration module; a compromised Core is outside the protection of a module-only integration. No normal cancellation or project refund after funding/first trade is implemented in v0.1; failed/abandoned launches may remain locked pending an explicitly reviewed recovery version. This favors backing over administrative recovery. Bridge pause stops new debit/credit, not custody withdrawal. Existing OpenFour pause authority remains a platform trust assumption. Fixed peers prevent owner peer replacement; endpoint delegate configuration and Solana upgrade/admin roles remain explicit privileged risks.
+No owner quote withdrawal exists in new protocol contracts. StandardVault trusts Core and migration module; a compromised Core is outside the protection of a module-only integration. No normal cancellation or project refund after funding/first trade is implemented in v0.2; failed/abandoned launches may remain locked pending an explicitly reviewed recovery version. This favors backing over administrative recovery. Bridge pause stops new debit/credit, not custody withdrawal. Existing OpenFour pause authority remains a platform trust assumption. Fixed peers prevent owner peer replacement; endpoint delegate configuration and Solana upgrade/admin roles remain explicit privileged risks.
 
-## Extensibility
+## Network scope
 
-New sources implement the canonical OFT debit/credit boundary and asset verifier; new destinations implement launch lifecycle and migration adapters. EIDs are not EVM chain IDs. Base/Ethereum require verified endpoint and launch integration deployments; no support is claimed for an unverified Robinhood Chain environment. Adding peers to a running launch requires a new reviewed deployment/version rather than an unrestricted owner function.
+BNB is the sole launch destination. Contracts require BNB mainnet (56), BNB testnet (97), or local BNB test forks (31337). Operational scripts reject mainnet. Source EIDs are fixed to Solana 30168/40168 according to destination environment; destination endpoint EIDs must be 30102/40102. Solana is backing infrastructure, not another launch destination. No alternate chain support is included.
 
 See ADR-001 for decisions, THREAT_MODEL for failure coverage, DEPLOYMENT for reproducibility, and FOURMEME_REVIEW_CHECKLIST for gates.
 

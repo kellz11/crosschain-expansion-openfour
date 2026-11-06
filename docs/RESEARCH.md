@@ -1,3 +1,11 @@
+# Current OpenFour provenance
+
+The active pin is `6f7efd5d3f14ed280cf471f70675ffba6d319943` (2026-11-02), Integration Guide 0.0.6. Current sources are under `developer/startup/vendor/openfour`; the manifest records each upstream source path and SHA-256. `node scripts/verify-upstream.mjs` checks integrity. Solc is now 0.8.24 via Hardhat, optimizer 200/viaIR. Current CreateTokenArgs includes partner, TradeResult contains revertData bytes, and StandardVault supports the current sell settlement functions. ExpansionTokenModule publishes its bootstrap schema through Tools.
+
+The developer-owned fork reuses published Core/Registry/FeeRouter/CreateDeployer/Tools and standard module implementations without copying their closed source. See [integration](OPENFOUR_INTEGRATION.md) and [fork evidence](reports/openfour-fork.json). Module instances use Registry-managed beacons.
+
+The original research below is retained as historical context; its old pins, compiler, missing-schema and untested-Core statements are superseded by the current integration and test report.
+
 # Research snapshot and provenance
 
 Retrieved September 19, 2026 US Eastern / September 20 UTC. GitHub archives were fetched by SHA; npm versions and integrity hashes are locked. Search results pointed at older guides, so the actual repository HEAD was inspected instead.
