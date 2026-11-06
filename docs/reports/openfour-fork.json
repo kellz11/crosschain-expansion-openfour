@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "generatedAt": "2026-11-06T01:38:01.699Z",
+  "generatedAt": "2026-11-06T02:17:00.320Z",
   "sourceChainId": 97,
   "forkBlock": 141062182,
   "chainId": 31337,
@@ -20,27 +20,27 @@
     "tools": "0x616d05Bd917ca68cb90117E7C7594ee5456520b9"
   },
   "addresses": {
-    "registry": "0xaBdEE25230e506cD3527dfb905be17c5E2b07804",
-    "feeRouter": "0x643E07b0D0717aEe019067B5f5f470b310fBa64B",
-    "core": "0x24E5b7179bacE54BF83E5Bc9798A7666220165C2",
-    "createDeployer": "0x6F5A9B2393e4D5218B9C5992e39cD18C196109D4",
-    "tools": "0x7575b15714b41a45074Fa781FfAa6d4541C9f3bc",
+    "registry": "0xC5D8FB01187D18A28920c3Ab3a26144b1F01C4d1",
+    "feeRouter": "0x454acB8A4370e2eE6670E08beafda0C3C8d5Ee16",
+    "core": "0xFB2C6d5214746A7e323419b41DE6cB64dB8244Bb",
+    "createDeployer": "0x6B38311335A4C7cc902987d1Ec9e9F5c8aA6BfE3",
+    "tools": "0x1A65376E5B7f64FbDA742066700469D3D09058b7",
     "wbnb": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-    "tokenImpl": "0x776acaa09ca88670bdb149162181f5e85652c844",
-    "validator": "0x17118b096a340e6f4a465ebb1bb6e21a60cdec1d",
-    "token": "0x5bFB21fdC6e6ba68Ad9769acACB656C6319fF13A",
-    "vault": "0x6aEa0ca557aC94A9eD2BBF5a572340016F118554",
-    "curve": "0x12Bb3a1E94B6DD408bEe42FaA03736df764cDb6A",
-    "migrate": "0x803D436F30ef1f7FfC9c964ece6C8741B2Ae9c81",
-    "pool": "0x8284e4D18d16cED195D9F45ae359f37cff55eBbF",
-    "adapter": "0x53089bFB0C7Ca6972fDfB29e76165041067D33b9",
-    "tokenModuleImpl": "0x44af9158906617457424f34152e32d2fa5fb2db2",
-    "curveImpl": "0xd25293b2d90be2068230740592c4d7b6bd0c4ba0",
-    "migrateImpl": "0x81cc21c164e982179ab1b80b4444a18c40e3e299",
-    "bridgeFactory": "0x21c8c6018904a63fbdd1bfacfc9d8859cc7db8fc",
-    "attestor": "0x22447a0424677132516f3d90948d729858e8bb53",
-    "sourceRegistry": "0x9d696b0abe7273509d4ebcb7faab3c1c45efef1d",
-    "mockEndpoint": "0x0e7915b2a61cfdf34f42aa64e346f61d4998bbae"
+    "tokenImpl": "0x551d538ca1DeF67D0a09CE498C5CD564c2C9823B",
+    "validator": "0x3Eb6E058ade6FBEBeaF5FfE927eD381EE8e7E512",
+    "tokenModuleImpl": "0xFb354E067F0903a68919e74F7d97987696E569FD",
+    "curveImpl": "0x6A4946cFbDE972D8E7b88b34a19427C91024dbB7",
+    "migrateImpl": "0x628b1F840363518B9C62BfA402D8A325f446897D",
+    "bridgeFactory": "0x6c05685E214eb7c1B7Eb8b8B57F6b89e27ecD8D4",
+    "attestor": "0xC17B3C499798Bf0C9273F36f7e9e2065004f753b",
+    "sourceRegistry": "0xf6208DB9FBB9bC80E2588DF5F3Fd1eAa0c2Ed51A",
+    "mockEndpoint": "0x4ED6dE1b4e5e488443376C27bfb41cCA79E37255",
+    "token": "0xbcc7C5D7aAA4b1a82337E3342899301BE03fD117",
+    "vault": "0xc91bF3E7B4473523034f042EE5b0e5c8287f0EE2",
+    "curve": "0x360EBBfC57dFA4bCE8150e996666Fd58203d552f",
+    "migrate": "0xf6Ac7f2BAcAE4360b77C35BF35FF7CCCa30CEc19",
+    "pool": "0xD7f31f84598e8068F28D70CdC752d1303D36Caa8",
+    "adapter": "0xc09C50CCDeE97F757E43d67a1873890697591EE9"
   },
   "checks": [
     "Developer owns the fork Registry and Core signer",
@@ -67,127 +67,127 @@
   "transactions": [
     {
       "label": "deploy MockEndpoint",
-      "hash": "0x69701f3120123be886183f66fe9f23882937feae9df0161b3cf02cc6c748b11f"
+      "hash": "0x0d2fa8cde349472936c0dfb1b58b8823402ce7648911f2a906f0c52ecf065067"
     },
     {
       "label": "deploy SourceRegistry",
-      "hash": "0x3a4e52b2c115065e7daed88b2d33a7ede36cdbb579c2ba777839db8e7f0cd39f"
+      "hash": "0x0bb794191c804d5cde924943807bb6c8a21ef854e0753ef7b5a1ae82231d5671"
     },
     {
       "label": "deploy ExpansionBridgeFactory",
-      "hash": "0xaf95f04d18b01dcaab68d54d2135e8510a3de11befc762faf0079c58c6c57c67"
+      "hash": "0x1e76c1632a77d37e49c959db97e16af245bec7a57fc2705bc851566642d1bef6"
     },
     {
       "label": "deploy EligibilityPriceAttestor",
-      "hash": "0xad300383c59581971f392b4d57d27ba9251418eecbad98dac62f81893824a4bd"
+      "hash": "0x31a4369f08a80171b390ca3009a28d6c0f670962b4220e3e1802ae42581187c3"
     },
     {
       "label": "deploy ExpansionToken",
-      "hash": "0xd7a9e3d4634bcc8aa008cbd5a580d80adbbcc68885fb8854bd99fb5bebe7b82f"
+      "hash": "0xfbbc46c9f12be04244d93482396c552e27d9f73b941c3394a6b3cbc4c64a0977"
     },
     {
       "label": "deploy ExpansionTokenModule",
-      "hash": "0xc6726f00bb535e8118d37ce5d24e59db8c7aa5d97e244279cbbde535e42062fa"
+      "hash": "0x9894b20ac9bab7a116dd37df0855bc853ec13d6d834b9a678ec9b9db30b12ec1"
     },
     {
       "label": "deploy ExpansionCurveModule",
-      "hash": "0xda611aa2946adc2e91eabadbc2a4619e3efe3e7bf100114a0c2eb2a9c94dc50e"
+      "hash": "0xd1c4486dc2e79a003e58b385ce2272b1ec454523c762200ec2dfae30e0e4a421"
     },
     {
       "label": "deploy ExpansionMigrateModule",
-      "hash": "0x16d045ebca454dd98d3f735520b40333118b34de8e3edb3b601a3ce908935067"
+      "hash": "0x8a7e62c691555984f4eeda72b2b84ccd0a3fd97f2c796a068e1a2029069753bf"
     },
     {
       "label": "deploy PancakeV2ExpansionAdapter",
-      "hash": "0x2684d69e96d2538245d2767aca09a875737d37f4b2e2e6a9f1a4c526e8dafa0e"
+      "hash": "0xc9d07346a8b456efda778470463687123ef496d140101925e3388511eff47e4b"
     },
     {
       "label": "deploy ExpansionPresetValidator",
-      "hash": "0xcb0cbe4631802c59587f0bd2c0e4e253b04133e8fd6a2a4b248633c5c22c89c7"
+      "hash": "0x2757869d460450516e2dc54e763437b61a17494538aeb6cb3e3b70121923b9a2"
     },
     {
       "label": "register token implementation",
-      "hash": "0xca6c6b46f33215ec842086a1503544fd6d9ff8dfcd87b17e5245d005203c6850"
+      "hash": "0xfade0d3601a581b7037219560f74731460176b9428f775511ae4a6b49c14358d"
     },
     {
       "label": "register token",
-      "hash": "0x6e5d59c40ed3a5e08944249a81ac43b206246e6943e10a1f5ba7de38bec2a12b"
+      "hash": "0x95719eb0ee07967398512d79f896140e35d5d5edf97063bec07ec7824d0795f5"
     },
     {
       "label": "register curve",
-      "hash": "0x1d5ba5fa281907c5bc78aab554c56bd0e764550f30b1a7694019452bf17f28d0"
+      "hash": "0x647afd6a45a17b9f62c3c2811b8489fff67f9490cfb4155566d432ad1c7057a6"
     },
     {
       "label": "register migrate",
-      "hash": "0x2e3ad8fa7c6f4dbeb690e89c6c6af4e611c91d74c4eae928cc9c4dcb2904577a"
+      "hash": "0xcb69ddebbc7f1d1272984135758a04bc90ad201edac54cca9b30ab9f01b9fdd7"
     },
     {
       "label": "register preset",
-      "hash": "0xe21b17f901ccdcde169ef5acf52efa7e086be0548ff8c263aac5043de805f76c"
+      "hash": "0x4dceb1a6f248c81873371145cd5eb69a9407eaba7b48feb8d61ee91cb68f6321"
     },
     {
       "label": "fixture source admission",
-      "hash": "0x6efc7f03eec1faa32b982ca4bf74a178e3c5611975beec68efe23579c93277fa"
+      "hash": "0x3fc7325d4d4c957872d226cc5bef7139c5ad82159347b7ff0d0548b49d3168ab"
     },
     {
       "label": "pre-create empty Pancake pair",
-      "hash": "0xdf6f28e8638f38c82728c7a90bf7c4eac163658d010c9d0a3f3cc0a59a0e48f4"
+      "hash": "0x6e65dde6a61cddb1406bd0d16543391c80f1ca84ad50833d6d18ac73b058e4f1"
     },
     {
       "label": "create token",
-      "hash": "0x30a933289b20112c41551d4af87f9205f0e5bce12a746244af5362a532c1fd7e"
+      "hash": "0x0d8ba0f3197db5b8d83ec19458ae6d118bd1835fca7abfc94de60c0156cd5a04"
     },
     {
       "label": "fixture bootstrap delivery",
-      "hash": "0x2ba63ffe82af5fb2036b26c420b552039d415def1a406ad157aa82aca295da94"
+      "hash": "0xa8b4d62839d13d5bcc288db850bf459f01d888bce0a2fa3d2b338bac42a8ef68"
     },
     {
       "label": "activate",
-      "hash": "0x72887d8bfa8a73bd548b477da3c4871b24382780ec9e8d9b14133950bc80bd9c"
+      "hash": "0x9006a4de2729b3b4b88f59cb246a2960a3ba2ec6b4593f24dfc9ecc328bed442"
     },
     {
       "label": "Core buy",
-      "hash": "0x6094a62662d8735662f4fefb3b9849273b301f42d006b9a57e6ed74fbb2088ad"
+      "hash": "0xfb15247810c59dcaf12b8697802d0accf4a80717d86e3dcf628a7e64ceb56c96"
     },
     {
       "label": "approve sell",
-      "hash": "0x6cca06a35442a6c73e08d7200c6fdcb212195dff995d3e026b517752bd4fb9b4"
+      "hash": "0x82501255ca4e253fa421b4a29ab3c14e8732fd546ce880e58b22765dbd465254"
     },
     {
       "label": "Core sell",
-      "hash": "0x1dc9e8631cae880635cd0cf93214dc8e4fb37196814bd5b23b4c4e7c6148cb7f"
+      "hash": "0xa5633247a612f107185b7c5029bf6972f7bb67ec575fcf715d859db0e6dbe606"
     },
     {
       "label": "wrap donation",
-      "hash": "0x94b6e74b95fe275cbdac6c56987ba736e7b7e0fa0f9f5de608dabfe8c6dcb940"
+      "hash": "0xad00e5c92a7076ca1b0192fdf28e6bae26c363d77fe5ee0192cde39e8aa5b9ec"
     },
     {
       "label": "quote-only donation",
-      "hash": "0xef7709c6a46727e8b0ead2e56884e6db20c055a8e42bcaaa0449d64fae3d869b"
+      "hash": "0x79de1e9702e37fa0814d5b7907ae6fd4cca434064113c1105aead29f7fc92dd6"
     },
     {
       "label": "sync donation",
-      "hash": "0x268c010c7d6150317ca944e4adfa5ac3ef7fd553ff7a96498f39ca3358d1522b"
+      "hash": "0x28f25dcfca26905cc84f268ca5f03f9664649e2845da68cd98fe5e68889232bb"
     },
     {
       "label": "Core buy",
-      "hash": "0xb38f783e44351efa929cead9ae418b1ef4826db34daae0f72005c9f386b1b0ba"
+      "hash": "0x2e50814dd5dba422b49602ae6e3d915adf2b2b15765832421a7584b554286a52"
     },
     {
       "label": "repeat Core migrate",
-      "hash": "0x892bcf3c88f5b78f5ff6a6f33f33291102c6ebceada2065751449d9d880e0acb"
+      "hash": "0x624dbc5893124ad11d9142a8060217c1efd329ba8d105f82a1b98d066eca8317"
     },
     {
       "label": "Pancake taxed buy",
-      "hash": "0x0197239386df40194e97b773f5b5be77a6d752e5b196351b2fd5192f5382f760"
+      "hash": "0x26a1c889223a7c8b69646055d9a149e53b9b3a8afaebf160d340b9b6f4ae7a66"
     },
     {
       "label": "approve Pancake sell",
-      "hash": "0x384a688374f2bd54a801f4441f8aaa3a658651bf18823683f676bc5d5a3a4b26"
+      "hash": "0x80abb8f6eaf4fdb29987cc899320f489ecb32319b53db418e7b84302cc40158e"
     },
     {
       "label": "Pancake taxed sell",
-      "hash": "0x9aa3cc51e22e8e429b2c434aab30d01331d37c62e6d4bcc004309015762b01e7"
+      "hash": "0xd3fc2431aa21b44d8fe6177f67b3085c307dae941b99f2fa10e2466c07c8fec4"
     }
   ]
 }

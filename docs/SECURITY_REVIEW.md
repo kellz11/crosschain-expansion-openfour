@@ -3,7 +3,7 @@
 - Date: 2026-11-06 UTC.
 - Scope: owned bridge, source registry, token, schema-aware token module, curve, migration, Pancake adapter and preset validator under developer/startup/contracts; matching tests, encoding helpers and preset composition. InitializationAuth/BnbEnvironment were also reviewed as security boundaries.
 - Excluded: unpublished Core/Registry/FeeRouter/CreateDeployer implementations and unchanged third-party dependencies. Their behavior was integration-tested, not audited.
-- Fork Registry: 0xaBdEE25230e506cD3527dfb905be17c5E2b07804 on ephemeral localhost chain 31337, forked from BNB testnet block 141062182. Not a public deployment.
+- Fork Registry: recorded in reports/openfour-fork.json on ephemeral localhost chain 31337, forked from BNB testnet block 141062182. Not a public deployment.
 - Preset: 2026110502; module keys/tag sources in OPENFOUR_INTEGRATION.md.
 - This is an AI-assisted defensive review, not an independent audit or security certification.
 
@@ -18,6 +18,12 @@
 - Post-migration pool tax is fixed at 15 bps, with the existing fixed recipient; wallet transfers and bridge mint/burn remain untaxed.
 
 ## Findings and fixes
+
+### [M, fixed] Repeated token-module creation could overwrite metadata
+- Location: ExpansionTokenModule.createToken.
+- Condition: without a one-time guard, a caller could direct an already-used module at a different initializer target and overwrite stored params/version.
+- Impact: Tools/indexers could read incorrect launch metadata even though the original token's balances were unchanged.
+- Fix: lock the implementation and allow one successful creation per proxy, setting the guard before the external initializer. A regression test verifies a second target cannot overwrite stored params/version.
 
 ### [H, fixed] Current CreateDeployer initialization was rejected
 - Location: ExpansionCurveModule.init and ExpansionMigrateModule.init.

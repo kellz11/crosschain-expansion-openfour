@@ -1,6 +1,34 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 describe("BNB OpenFour integration boundaries", function () {
+  it("prevents repeated token-module creation from overwriting stored metadata", async function () {
+    const [owner] = await ethers.getSigners();
+    const impl = await (await ethers.getContractFactory("ExpansionTokenModule")).deploy();
+    const harness = await (await ethers.getContractFactory("MockTokenModuleHarness")).deploy();
+    await harness.cloneModule(impl.target);
+    const module = await ethers.getContractAt("ExpansionTokenModule", await harness.lastModule());
+    const params = [1, "First", "ONE", 100, 39, 1, owner.address, "", "0x1234", ethers.ZeroHash];
+    const args = [
+      owner.address,
+      harness.target,
+      owner.address,
+      owner.address,
+      owner.address,
+      owner.address,
+      ethers.ZeroAddress,
+      params,
+      "0.2.0",
+      "0.2.0",
+    ];
+    await expect(impl.createToken(...args)).revertedWith("TokenModule: already created");
+    await module.createToken(...args);
+    const changed = [...args];
+    changed[7] = [...params];
+    changed[7][8] = "0xabcd";
+    await expect(module.createToken(...changed)).revertedWith("TokenModule: already created");
+    expect(await module.getInitParams()).eq("0x1234");
+    expect((await module.descriptor())[2]).eq("0.2.0");
+  });
   it("publishes a discoverable token schema with exact bootstrap ABI order", async function () {
     const module = await (await ethers.getContractFactory("ExpansionTokenModule")).deploy();
     const schema = await module.moduleEncodeSchema();

@@ -1,7 +1,7 @@
 {
   "compiler": "0.8.24+commit.e11b9ed9.Emscripten.clang",
   "build": "Hardhat",
-  "sourceUnits": 82,
+  "sourceUnits": 83,
   "settings": {
     "optimizer": {
       "enabled": true,
@@ -23,9 +23,10 @@
     "MockQuote": 2394,
     "MockV2Router": 5512,
     "MockSimpleTradeModule": 1911,
+    "MockTokenModuleHarness": 406,
     "ExpansionCurveModule": 6939,
     "ExpansionMigrateModule": 8895,
-    "ExpansionTokenModule": 5356,
+    "ExpansionTokenModule": 5442,
     "PancakeV2ExpansionAdapter": 6412,
     "EligibilityPriceAttestor": 3759,
     "ExpansionToken": 10809,

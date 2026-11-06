@@ -5,9 +5,9 @@ Run date: 2026-11-06 UTC (November 5 US Eastern). Windows, Node 22.14.0, Hardhat
 | Check | Result |
 |---|---|
 | Clean locked root install | PASS: 623 packages; npm ci --ignore-scripts |
-| Compile | PASS: 82 artifact source units; owned runtime sizes below EIP-170 |
+| Compile | PASS: 83 artifact source units; owned runtime sizes below EIP-170 |
 | Existing EVM/economics regressions | PASS: 14 tests, zero failures/skips |
-| New Hardhat integration boundaries | PASS: 5 tests |
+| New Hardhat integration boundaries | PASS: 6 tests |
 | Solana SDK/policy suite | PASS: 2 tests after clean locked install |
 | Actual OpenFour/Pancake local fork | PASS: 20 checks, source BNB testnet block 141062182 |
 | Formatting | PASS |
@@ -24,7 +24,7 @@ The local fork uses the published Registry, Core, CreateDeployer, FeeRouter, Too
 
 After fixture bootstrap and a signed activation, real Core buys/sells preserve the exact reserve invariant. An empty Pancake pair pre-created before the launch is reused; pre-graduation token deposits fail. A synced quote-only donation is accepted at graduation. Actual pair reserves, LP burn recipient, emptied vault and one-time migration are verified. Current Core treats a repeat migration call as a no-op; the test checks no second migration event or balance change rather than expecting a revert.
 
-The real Pancake fee-on-transfer router executes both post-migration buy and sell paths; tax reaches the fixed recipient. The five new Hardhat tests cover schema ABI order, source EID restriction, locked implementation initializers, unrelated-chain rejection, and creation signature/domain/outer-flag constraints.
+The real Pancake fee-on-transfer router executes both post-migration buy and sell paths; tax reaches the fixed recipient. The six new Hardhat tests cover schema ABI order, source EID restriction, locked implementation initializers, unrelated-chain rejection, creation signature/domain/outer-flag constraints, and prevention of repeated token-module creation/metadata overwrite.
 
 ## Regression coverage
 

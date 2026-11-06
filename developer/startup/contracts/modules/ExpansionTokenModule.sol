@@ -13,6 +13,11 @@ import {
 contract ExpansionTokenModule is IOpenFourTokenModule, IOpenFourModuleSchema {
     bytes private _initParams;
     string private _moduleVersion;
+    bool private _created;
+
+    constructor() {
+        _created = true; // Lock the implementation; each fresh module proxy starts false.
+    }
 
     function descriptor()
         external
@@ -36,6 +41,8 @@ contract ExpansionTokenModule is IOpenFourTokenModule, IOpenFourModuleSchema {
         string calldata tokenImplVersion,
         string calldata tokenModuleVersion
     ) external override returns (uint256 maxSupply, string memory name, string memory symbol) {
+        require(!_created, "TokenModule: already created");
+        _created = true;
         _moduleVersion = tokenModuleVersion;
         _initParams = tokenParams.tokenParams;
         name = tokenParams.name;
